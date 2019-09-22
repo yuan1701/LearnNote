@@ -1,0 +1,35 @@
+查看当前分支
+git branck 
+查看所有分支
+git branch -a
+
+假设我现在dev201909分支上，想删除这个分支
+1.切换到别的分支：git checkout main
+2.删除本地分支：git branch -d dev201909
+3.或者强制删除：git branch -D dev201909
+4.如果要删除远程分支：git push origin --delete dev201909
+5.用公用仓库直接fetch代码：git fetch origin dev201909:dev201909
+6.切换分支：git checkout dev201909
+
+
+
+如果我想把master分支修改为main:
+1.本地分支重命名：git branch -m master main
+2.远程分支重命名(假设本地分支合远程分支名字相同)：
+    a.重命名本地分支：git branch -m master main
+    b.删除远程分支：git push --delete origin master
+    ps:发现master分支删除失败？？？
+    c.上传新命名的本地分支： git push origin main
+
+
+如果我要创建一个空的null分支要怎么做
+1.git checkout --orphan null
+ps：--orphan可以创建一个不包含log的分支,如果直接使用git checkout null会基于当前分支创建，包含当前分支的log记录
+2.git rm -rf
+ps:删除所有被跟踪的文件
+3.git branch -a
+ps：发现并没有null分支，原因是新建的分支在commit之后才能看见
+
+
+
+退出git log: 英文状态下的q
