@@ -17,3 +17,6 @@ git commit主要是将暂存区里的改动提交到了本地的版本库，每�
 5.git rebase origin main
 如果我commit了很多次，我想把他们合并成一个,就可以用这个命令
 
+
+https://github.com/geeeeeeeeek/git-recipes/blob/master/sources/5.1-%E4%BB%A3%E7%A0%81%E5%90%88%E5%B9%B6Merge%E8%BF%98%E6%98%AFRebase.md
+
