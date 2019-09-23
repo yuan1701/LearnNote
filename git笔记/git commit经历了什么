@@ -1,0 +1,4 @@
+git commit主要是将暂存区里的改动提交到了本地的版本库，每次commit都会在本地版本库生成一个40位的哈希值，这个哈希值也叫commit-id
+
+
+1.git commit -m 'message'
