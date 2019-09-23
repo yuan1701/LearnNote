@@ -2,3 +2,18 @@ git commit主要是将暂存区里的改动提交到了本地的版本库，每�
 
 
 1.git commit -m 'message'
+-m 参数表示可以直接在后面输入"message",如果不加-m,会调用编辑器的vim来让你输入message
+
+2.git commit -a -m 'message'
+-a 可以将所有已跟踪的文件都提交到本地仓库,即使没有经过git add添加到暂存区,不推荐使用
+
+3.git commit --amend //也叫追加提交
+如果我们提交了一版我们不满意的代码，并且推送到了服务器，
+在没有merge之后我们还想改一下，就可以使用这个命令，可以在不增加一个commit-id的情况下将新修改的代码追加到前一次的commit-id上
+
+4.git cherry-pick + commit-id 
+可以单独merge 任意一个branch的任意一个commit到本branch上
+
+5.Rebase
+如果我commit了很多次，我想把他们合并成一个,就可以用这个命令
+
