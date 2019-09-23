@@ -18,7 +18,7 @@ git branch -a
 2.远程分支重命名(假设本地分支合远程分支名字相同)：
     a.重命名本地分支：git branch -m master main
     b.删除远程分支：git push --delete origin master
-    ps:发现master分支删除失败？？？master分支为默认分支,当我们项目被访问的时候默认就是这个分支,在本地是无法修改滴
+    ps:发现master分支删除失败？？？因为master为默认分支，要先修改main为默认分支，点击setting->branch修改即可
     c.上传新命名的本地分支： git push origin main
 
 如何删除远程的master分支(也就是如何修改默认分支为其它分支)
