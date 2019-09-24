@@ -1,0 +1,19 @@
+
+
+0.npm的默认镜像是
+
+ http://registry.npm.org
+
+1.如果想要修改为淘宝镜像：
+npm config set registry http://registry.npm.taobao.org
+
+查看npm镜像：
+
+npm config get registry  
+
+或者用记事本打开.npmrc文件
+
+2.如果我只是临时用一下不想改镜像的话：
+npm --registry http://registry.npm.taobao.org install express
+
+
