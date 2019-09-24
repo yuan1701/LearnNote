@@ -9,7 +9,10 @@
  * 文件是否为文件夹 .isDirectory()
  * 创建文件夹fs.mkdir(path,callback)
  * 创建文件
- * 
+ *
+ * fs.rename(oldname,newname) 会将路径一起改掉
+ *
+ *
  */
 const http = require('http')
 const fs = require('fs')
