@@ -7,10 +7,24 @@
     <title>上传文件</title>
 </head>
 <body>
+     <!-- 测试post请求---->
+    
+    <form action="http://127.0.0.1:3000/dopost" method="post">
+        <p>name: <input type="text" name="name"></p>
+        <p>sex: <input type="radio" name="sex" value="男" checked><input type="radio" name="sex" value="女"></p>
+        <input type="submit" value="submit">
+    </form>
+    
+      <!--测试post的文件上传 -----只要涉及文件上传都要加enctype enctype="multipart/form-data" 
+        可是为什么会出现下面的东西
+        
+        ------WebKitFormBoundaryhrfxgdEdU6B3rnpq
+        Content-Disposition: form-data; name="name"
+        ---->
     <form action="http://127.0.0.1:3000/dopost" method="post" enctype="multipart/form-data">
         <p>name: <input type="text" name="name"></p>
         <p>sex: <input type="radio" name="sex" value="男" checked><input type="radio" name="sex" value="女"></p>
-        <p>file: <input type="file" name=""></p>
+        <p>file: <input type="file" name="file"></p>
         <input type="submit" value="submit">
     </form>
 
