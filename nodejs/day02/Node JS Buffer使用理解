@@ -1,0 +1,58 @@
+Node JS Buffer使用理解
+JavaScript 起初为浏览器而设计，没有读取或操作二进制数据流的机制。Buffer类的引入，则让NodeJS拥有操作文件流或网络二进制流的能力。
+
+Buffer基本概念
+Buffer 对象的内存分配不是在V8的堆内存中，而是Node在C++层面进行内存申请，可以理解为在内存中单独开辟了一部分空间，但是使用时分配内存则是由Node层面完成的，释放也是由Node中v8的gc机制自动控制。Buffer基本操作，这里不在赘述，官方文档很详细。
+
+Buffer性能对比
+通常，网络传输中，都需要将数据转换为Buffer。下面做一个性能对比实验。
+
+1.使用纯字符串返回给客户端
+const http = require('http');
+
+let hello = ''
+for (var i = 0; i < 10240; i++) {
+  hello += "a";
+}
+
+console.log(`Hello：${hello.length}`)
+// hello = Buffer.from(hello);
+
+http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end(hello);
+}).listen(8001);
+复制代码
+使用ab -c 200 -t 100 http://127.0.0.1:8001/命令来进行性能测试，发起200个并发客户端
+
+string-200
+使用字符串，QPS可以达到4019.70，传输率为40491.45KB每秒。
+
+2.使用Buffer。将字符串转换为Buffer对象，再发给客户端。
+const http = require('http');
+
+let hello = ''
+for (var i = 0; i < 10240; i++) {
+  hello += "a";
+}
+
+console.log(`Hello：${hello.length}`)
+hello = Buffer.from(hello);
+
+http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end(hello);
+}).listen(8001);
+复制代码
+取消Buffer转换的注释，同样使用ab -c 200 -t 100 http://127.0.0.1:8001/测试，同样发起200个并发客户端。
+
+buffer-200
+使用Buffer，QPS达到7130.05，传输率为71822.74KB每秒。 性能是原来的177%，极大的节省了服务器资源。 上面这个对比示例参考于《深入浅出Node JS》。
+
+那么问题来了，为什么会有这么大的性能提升呢？
+道理其实很简单，在NodeJS中，进行http传输时，若返回的类型为string，则会将string类型的参数，转换为Buffer，通过NodeJS中的Stream流，一点点的返回给客户端。如果我们直接返回Buffer类型，就没有了转换操作，直接返回，减少了CPU的重复使用率。这一部分逻辑见Node源码github.com/nodejs/node…
+
+在上面性能对比示例中，返回string时，每次请求都需要将string装换成Buffer返回；而直接返回Buffer时，这个Buffer是我们启动服务时就存放在内存中的，每次请求直接返回内存中的Buffer即可，因此Buffer使用前后QPS提升了很多。
+
+因此，我们在写业务代码时，部分资源可以预先转换为Buffer类型（如js、css等静态资源文件），直接返回buffer给客户端，再比如一些文件转发的场景，将获取到的内容储存为Buffer直接转发，避免额外的转换操作。
+
