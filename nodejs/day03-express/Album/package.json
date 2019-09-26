@@ -1,0 +1,21 @@
+{
+  "name": "album",
+  "version": "0.0.1",
+  "description": "'我的相册'",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "'xxxxx'"
+  },
+  "keywords": [
+    "'album'"
+  ],
+  "author": "vun",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
