@@ -6,7 +6,6 @@ Node.JS特性：
 
 RESTful API、单线程、非阻塞IO、V8虚拟机、事件驱动
 
-课程总大小：5.39 GB
 
 【课程内容】
 
@@ -44,7 +43,7 @@ Express框架
 中间件
 render和send
 get请求和post
-缕缕API
+查看express的API
 小小相册
 
 第四章：
