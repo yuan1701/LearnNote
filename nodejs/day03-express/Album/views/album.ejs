@@ -49,18 +49,21 @@
     </nav>
 
     <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active"><%= albumName%></li>
+        </ol>
         <div class="row">
 
-            <% albums.forEach(function(item){%>
-                <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <img src="images/wjj.jpg" alt="...">
-                    </a>
-                    <a href="#"><%= item  %></a>
-                </div>
-               
+            <% images.forEach(function(item){%>
+            <div class="col-xs-6 col-md-3">
+                <a href="" class="thumbnail">
+                    <img src="<%=item%>" alt="...">
+                    <span><%=item%></span>
+                </a>
+            </div>
             <% }) %>
-             
+
         </div>
     </div>
 
