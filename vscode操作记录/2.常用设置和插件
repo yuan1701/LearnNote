@@ -2,3 +2,17 @@
   vue高亮，语法检查，缩进
 2.gitlens  git源代码管理插件
 3.添加文件头插件：https://blog.csdn.net/qq_40028324/article/details/82454829
+
+
+4.自动保存文件：file---首选项---setting ---搜索autosave
+5.实现保存时自动代码格式化：
+
+1）文件 ------.>【首选项】---------->【设置】；
+
+2）搜索emmet.include;
+
+3）在settings.json下的【工作区设置】中添加以下语句：
+
+"editor.formatOnType": true,
+"editor.formatOnSave": true
+
