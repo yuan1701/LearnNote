@@ -1,36 +1,36 @@
 1  .vue的模板文件生成：
-file->首选项->用户代码片段，出现搜索框输入vue,打开vue.json,将下面代码输入即可（没效果是咋回事？？？）
+file->首选项->用户代码片段，出现搜索框输入vue,打开vue.json,将下面代码输入即可（新建a.vue文件，输入vue回车）
 {
-    "Print to console": {
+   	"vue-template": {
 		"prefix": "vue",
 		"body": [
-			"<!-- create by vun -->",
-			"<template>",
-			"  <div></div>",
-			"</template>",
-			"",
-			"<script>",
-			"export default {",
-			"  data () {",
-			"    return {",
-			"    };",
-			"  },",
-			"",
-			"  components: {},",
-			"",
-			"  computed: {},",
-			"",
-			"  mounted: {},",
-			"",
-			"  methods: {}",
-			"}",
-			"",
-			"</script>",
-			"<style lang='scss' scoped>",
-			"</style>"
+		"<!-- create by vun -->",
+		  "<template>",
+		  "  <div class=\"$1\">",
+		  "",
+		  "  </div>",
+		  "</template>",
+		  "",
+		  "<script>",
+		  "export default {",
+		  "  name: '$1',",
+		  "  data() { ",
+		  "    return {",
+		  "",
+		  "    }",
+		  "  }",
+		  " }",
+		  "</script>",
+		  "",
+		  "<style lang=\"\" scoped>",
+		  "  .$1{",
+		  "",
+		  "  }",
+		  "</style>"
+	
 		],
-		"description": "Log output to console"
-	}
+		"description": "my vue template"
+	  }
 }
 
 2.
