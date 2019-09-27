@@ -273,7 +273,7 @@ click promise mutate click promise mutate (2) timeout
 很好的解释了，setTimeout会在微任务（Promise.then、MutationObserver.observe）执行完成之后，加入一个新的宏任务中
 
 多看一些🌰
-```html
+````javascript
 console.log(1);
 setTimeout(function(){
     console.log(2);
@@ -293,7 +293,7 @@ setTimeout(function(){
         console.log('promise3')
     })
 })
-```
+````
 
 复制代码
 1 2 promise1 3 promise2 4 promise3
@@ -317,6 +317,25 @@ setTimeout(function(){
 ````
 复制代码
 1 2 promise1 3 promise2
+
+
+**练习**：如果声明一个promise，0秒后输出helloworld,promise里面运行的内容是在 调用.then() 之前执行的还是 调用.then才执行？
+
+
+```javascript
+console.log(1);
+new Promise(function(resolve,reject){
+   // resolve()
+    setTimeout(()=>{
+        resolve()
+        console.log('helloworld')
+    })
+}).then(()=>{
+    console.log('then')
+})
+ 
+```
+在上面代码，resolve()如果放在settimeout外面，.then会在helloworld之前打印,如果resolve放在settimeout里面，helloworld会先打印出来
 
 ### 总结回顾
 **栈**：
