@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <!-- 引包 -->
+    <script src="socket.io/socket.io.js"></script>
+
+</head>
+<body>
+     <input id="test" name="test" type="text" value="hello world"/>
+
+    <input id="btn" type="button" value="button" >
+    <h1>我引入了socket.io/socket.io.js</h1>
+    
+    <script>
+
+        const val = $(" #test ").val()
+        const socket = io()
+
+        $('#btn').click(()=>{
+           socket.emit('Q',val)
+           socket.on('A',(msg)=>{
+               console.log(msg)
+           })
+        })
+
+    </script>
+</body>
+</html>
