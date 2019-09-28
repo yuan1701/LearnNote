@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>心动效果</title>
+    <style>
+        .textCon{
+            margin: 10px auto;
+            width: 100px;
+            height: 50px;
+            text-align: center;
+
+        }
+        .heart{
+            position: relative;
+            width: 50px;
+            height: 50px;
+            margin: 50px auto;
+            background-color: red;
+            transform: rotate(45deg);
+            animation: heart 1s ease-in infinite;
+        }
+        .heart::before,.heart::after{
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color:red;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0
+           
+        }
+        .heart::before{
+            /* transform 和translate怎么老是分不清楚 */
+            transform: translateY(-50%);  
+        }
+        .heart::after{
+            /* transform 和translate怎么老是分不清楚 */
+            transform :translateX(-50%) 
+        }
+
+        @keyframes heart {
+            0%{
+                opacity: 0.3;
+                transform: scale(0.8) rotate(45deg);
+            };
+            50%{
+                opacity: 1;
+            };
+            100%{
+                opacity: 0.3;
+            }
+            
+        }
+
+        @keyframes hearts {
+            0%{
+                opacity: 0.3;
+                top: 0px;
+                transform: scale(0.8) rotate(45deg);
+            };
+            50%{
+                opacity: 1;
+            };
+            100%{
+                opacity: 0.3;
+                top: -1000px
+            }
+            
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="textCon">
+        <span class="text">Hearts</span>
+    </div>
+    <div class="heart"></div>
+
+    <script>
+        var box = document.getElementsByClassName('textCon')[0]
+
+        function createHeart(){
+            for(var i=0;i<20;i++){
+                var ele = document.createElement('div')
+                var width = box.offsetWidth
+                var height = box.offsetHeight
+                ele.classList.add('heart')
+                ele.style.width = "25px";
+                ele.style.height = "25px";
+                ele.style.bottom = '20px'
+                ele.style.left = ran(0,width)+'px';
+                ele.style.animation='hearts 1s ease-in infinite';
+                ele.style.animationDelay = ran(0,30)+'s'
+
+                box.appendChild(ele)
+            }
+            
+        }
+
+
+        createHeart()
+
+        function ran(min, max){
+            return Math.floor((Math.random()*(max-min)+min))
+        }
+        
+    
+    
+    </script>
+
+
+</body>
+</html>
