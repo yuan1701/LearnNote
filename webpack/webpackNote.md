@@ -203,11 +203,13 @@ style-loader: 把 js 中引入的 css 内容 注入到 html 标签中，并添�
 
   document.body.appendChild(createDomElement());
 ```
+
 最后重新打开 dist 目录下的 index.html 看一下文字是否变成了红色的了。
 
-> ps:这里的css文件已经打包在了dist/main.js文件里面
+> ps:这里的css文件已经打包在了dist/main.js文件里面,就不需要单独引入了
 
 ### 加载Sass文件
+
 加载 Sass 需要sass-loader
 
 ```javascript
@@ -215,6 +217,7 @@ npm install sass-loader node-sass -D
 ```
 
 使用：
+
 ```javascript
 // webpack.config.js
 module.exports = {
@@ -237,6 +240,7 @@ module.exports = {
 为 sass 文件注入内容：
 
 如果你要将 Sass 代码放在实际的入口文件(entry file)之前，可以设置 data 选项。此时 sass-loader 不会覆盖 data 选项，只会将它拼接在入口文件的内容之前。（没懂啥意思，回头在看）
+
 ```javascript
 {
     loader: "sass-loader",
@@ -249,8 +253,10 @@ module.exports = {
 > 注意：由于代码注入, 会破坏整个入口文件的 source map。通常一个简单的解决方案是，多个 Sass 文件入口。
 
 ### 创建 Source Map
+
 css-loader和sass-loader都可以通过该 options 设置启用 sourcemap
 启用sourcemap后可以看清楚的看见样式是在那个文件里写的，方便开发
+
 ```javascript
 // webpack.config.js
 module.exports = {
@@ -275,11 +281,14 @@ module.exports = {
   }
 };
 ```
+
 ### PostCSS处理loader（附带：添加 css3 前缀）
+
 - 1.是什么
 [PostCss](https://github.com/postcss/postcss/blob/HEAD/README-cn.md "PostCss")是一个CSS预处理工具，它通过自定义的插件和工具生态体系来重新定义css。它鼓励开发者使用规范的css原生语法编写代码，然后配置编译器转换需要兼容的浏览器版本，最后通过编译将源码转换为目标浏览器可用的css代码。
 
 它和stylus的不同之处是它可以通过插件机制灵活地扩展其支持的特性，不像stylus的语法是固定的，它的用途非常多，比如css自动加前缀，使用下一代css语法等等
+
 - 2.安装
 
 ```javascript
@@ -296,6 +305,7 @@ $ npm install precss --save-dev
 # 在@import css文件的时候让webpack监听并编译
 $ npm install postcss-import --save-dev
 ```
+
 - 3.在webpack中的配置
 
 ```javascript
@@ -341,6 +351,7 @@ module.exports = {
   }
 };
 ```
+
 在css文件里添加样式 `display:flex`, 执行`npx webpack` 就可以然后打开dist/index.html 就可以看见编译之后的效果：在flex前面加了前缀
 
 ### 样式表抽离成专门的单独文件
@@ -356,6 +367,7 @@ module.exports = {
 ```javascript
 npm install --save-dev mini-css-extract-plugin
 ```
+
 webpack.product.config.js
 
 ```javascript
@@ -389,9 +401,11 @@ module.exports = {
   ]
 };
 ```
+
 运行`npx webpack --config webpack.product.config.js`打包：
 
 在 dist 目录中已经把 css 抽取到单独的一个 css 文件中了。修改 html，引入此 css 就能看到结果了。
+
 ### 压缩 CSS
 
 webpack5 貌似会内置 css 的压缩，webpack4 可以自己设置一个插件即可。
@@ -403,6 +417,7 @@ webpack5 貌似会内置 css 的压缩，webpack4 可以自己设置一个插件
 ```javascript
 npm i -D optimize-css-assets-webpack-plugin
 ```
+
 使用：
 
 ```javascript
@@ -454,16 +469,18 @@ module.exports = {
   ],
   optimization: {
    minimizer: [
-     new UglifyJsPlugin({
-		  cache: true,
-		  parallel: true,
-		  sourceMap: true // set to true if you want JS source maps
+    new UglifyJsPlugin({
+      cache: true,
+      parallel: true,
+      sourceMap: true // set to true if you want JS source maps
     }),//压缩js
     new OptimizeCSSAssetsPlugin({})] //压缩css
   }
 };
 ```
+
 ### 压缩js
+
 压缩js需要一个插件： `uglifyjs-webpack-plugin`, 此插件需要一个前提就是：mode: 'production'.
 
 安装
@@ -471,6 +488,7 @@ module.exports = {
 ```javascript
 npm i -D uglifyjs-webpack-plugin
 ```
+
 使用：见上面的代码
 
 ### 解决 CSS 文件或者 JS 文件名字哈希变化的问题
@@ -484,7 +502,9 @@ npm i -D uglifyjs-webpack-plugin
 ```javascript
 npm install --save-dev html-webpack-plugin
 ```
+
 使用：
+
 ```javascript
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 ...
@@ -508,14 +528,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
     })
   ],
 ```
+
 在package.json的scripts配置：
+
 ```javascript
  "scripts": {
     "build": "npx webpack --config webpack.product.config.js"
   },
 ```
+
 执行`npm run build`就可以看见生成的main.html里面自动添加了带有hash值得js和css。
+
 ### 清理dist目录
+
 只要文件改动，每次构建，我们的 /dist 文件夹都会保存生成的文件，然后就会非常杂乱。通常，在每次构建前清理 /dist 文件夹，是比较推荐的做法
 
 [clean-webpack-plugin](https://www.npmjs.com/package/clean-webpack-plugin "clean-webpack-plugin") 是一个比较普及的管理插件，让我们安装和配置下。
@@ -524,13 +549,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 npm install clean-webpack-plugin --save-dev
 ```
 
-
 webpack.product.config.js
+
 ```javascript
 + const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
   module.exports = {
-	...
+    ...
     plugins: [
 +     new CleanWebpackPlugin()
     ],
@@ -541,13 +566,17 @@ webpack.product.config.js
 现在执行 npm run build，再检查 /dist 文件夹。如果一切顺利，你现在应该不会再看到旧的文件，只有构建后生成的文件！
 
 ### 图片加载优化
+
 file-loader处理文件的导入
 [image-webpack-loader](https://www.npmjs.com/package/image-webpack-loader "image-webpack-loader")可以帮助我们对图片进行压缩和优化
+
 ```javascript
 npm install --save-dev file-loader
 npm install image-webpack-loader --save-dev
 ```
+
 使用：
+
 ```javascript
 module: {
     rules: [
@@ -583,15 +612,16 @@ module: {
   }
 ```
 > 在css中引入的图片通过file-loader处理后还能正常显示，但是如何在html中引入图片？
+像下面这样象ejs的写法
+
 ```javascript
 <img src=" <%= require('./assets/images/webpack.jpg')%> alt="">"
 ```
 
 > image-webpack-loader 在使用过程中报错，解决方法未知？？？？
 
-
-
 ### 图片处理为base64
+
 `url-loader`功能类似于 `file-loader`，可以把 url 地址对应的文件，打包成 base64 的 DataURL，提高访问的效率。
 
 如何使用：
@@ -599,7 +629,7 @@ module: {
 ```javascript
 npm install --save-dev url-loader
 ```
- 
+
 webpack.config.js
 
 ```javascript
