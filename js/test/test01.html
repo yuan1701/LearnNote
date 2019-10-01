@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>练习题</title>
+</head>
+<body>
+    <script>
+        function a(xx){
+            this.x = xx
+            return this
+        }
+        var x=a(6)
+        console.log(a(6)) //window
+    </script>
+    <script>
+        var a={}
+        b={key:'b'}
+        c={key:'c'}
+        a[b]=123;
+        a[c]=456;
+        console.log(a[b]);  // 456
+    </script>
+
+    <script>
+        var b=1;
+        function outer(){
+            var b=2
+            function inner(){
+                b++
+                var b=3;
+                console.log(b) //3
+            }
+            inner()
+        }
+        outer()
+    
+    </script>
+
+    <script>
+        console.log(typeof typeof 1) //string
+    </script>
+</body>
+</html>
