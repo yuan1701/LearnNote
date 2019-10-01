@@ -203,11 +203,13 @@ style-loader: 把 js 中引入的 css 内容 注入到 html 标签中，并添�
 
   document.body.appendChild(createDomElement());
 ```
+
 最后重新打开 dist 目录下的 index.html 看一下文字是否变成了红色的了。
 
-> ps:这里的css文件已经打包在了dist/main.js文件里面
+> ps:这里的css文件已经打包在了dist/main.js文件里面,就不需要单独引入了
 
 ### 加载Sass文件
+
 加载 Sass 需要sass-loader
 
 ```javascript
@@ -215,6 +217,7 @@ npm install sass-loader node-sass -D
 ```
 
 使用：
+
 ```javascript
 // webpack.config.js
 module.exports = {
@@ -237,6 +240,7 @@ module.exports = {
 为 sass 文件注入内容：
 
 如果你要将 Sass 代码放在实际的入口文件(entry file)之前，可以设置 data 选项。此时 sass-loader 不会覆盖 data 选项，只会将它拼接在入口文件的内容之前。（没懂啥意思，回头在看）
+
 ```javascript
 {
     loader: "sass-loader",
@@ -249,8 +253,10 @@ module.exports = {
 > 注意：由于代码注入, 会破坏整个入口文件的 source map。通常一个简单的解决方案是，多个 Sass 文件入口。
 
 ### 创建 Source Map
+
 css-loader和sass-loader都可以通过该 options 设置启用 sourcemap
 启用sourcemap后可以看清楚的看见样式是在那个文件里写的，方便开发
+
 ```javascript
 // webpack.config.js
 module.exports = {
@@ -275,11 +281,14 @@ module.exports = {
   }
 };
 ```
+
 ### PostCSS处理loader（附带：添加 css3 前缀）
+
 - 1.是什么
 [PostCss](https://github.com/postcss/postcss/blob/HEAD/README-cn.md "PostCss")是一个CSS预处理工具，它通过自定义的插件和工具生态体系来重新定义css。它鼓励开发者使用规范的css原生语法编写代码，然后配置编译器转换需要兼容的浏览器版本，最后通过编译将源码转换为目标浏览器可用的css代码。
 
 它和stylus的不同之处是它可以通过插件机制灵活地扩展其支持的特性，不像stylus的语法是固定的，它的用途非常多，比如css自动加前缀，使用下一代css语法等等
+
 - 2.安装
 
 ```javascript
@@ -296,6 +305,7 @@ $ npm install precss --save-dev
 # 在@import css文件的时候让webpack监听并编译
 $ npm install postcss-import --save-dev
 ```
+
 - 3.在webpack中的配置
 
 ```javascript
@@ -341,6 +351,7 @@ module.exports = {
   }
 };
 ```
+
 在css文件里添加样式 `display:flex`, 执行`npx webpack` 就可以然后打开dist/index.html 就可以看见编译之后的效果：在flex前面加了前缀
 
 ### 样式表抽离成专门的单独文件
@@ -356,6 +367,7 @@ module.exports = {
 ```javascript
 npm install --save-dev mini-css-extract-plugin
 ```
+
 webpack.product.config.js
 
 ```javascript
@@ -389,9 +401,11 @@ module.exports = {
   ]
 };
 ```
+
 运行`npx webpack --config webpack.product.config.js`打包：
 
 在 dist 目录中已经把 css 抽取到单独的一个 css 文件中了。修改 html，引入此 css 就能看到结果了。
+
 ### 压缩 CSS
 
 webpack5 貌似会内置 css 的压缩，webpack4 可以自己设置一个插件即可。
@@ -403,6 +417,7 @@ webpack5 貌似会内置 css 的压缩，webpack4 可以自己设置一个插件
 ```javascript
 npm i -D optimize-css-assets-webpack-plugin
 ```
+
 使用：
 
 ```javascript
@@ -454,16 +469,18 @@ module.exports = {
   ],
   optimization: {
    minimizer: [
-     new UglifyJsPlugin({
-		  cache: true,
-		  parallel: true,
-		  sourceMap: true // set to true if you want JS source maps
+    new UglifyJsPlugin({
+      cache: true,
+      parallel: true,
+      sourceMap: true // set to true if you want JS source maps
     }),//压缩js
     new OptimizeCSSAssetsPlugin({})] //压缩css
   }
 };
 ```
+
 ### 压缩js
+
 压缩js需要一个插件： `uglifyjs-webpack-plugin`, 此插件需要一个前提就是：mode: 'production'.
 
 安装
@@ -471,6 +488,7 @@ module.exports = {
 ```javascript
 npm i -D uglifyjs-webpack-plugin
 ```
+
 使用：见上面的代码
 
 ### 解决 CSS 文件或者 JS 文件名字哈希变化的问题
@@ -484,7 +502,9 @@ npm i -D uglifyjs-webpack-plugin
 ```javascript
 npm install --save-dev html-webpack-plugin
 ```
+
 使用：
+
 ```javascript
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 ...
@@ -508,14 +528,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
     })
   ],
 ```
+
 在package.json的scripts配置：
+
 ```javascript
  "scripts": {
     "build": "npx webpack --config webpack.product.config.js"
   },
 ```
+
 执行`npm run build`就可以看见生成的main.html里面自动添加了带有hash值得js和css。
+
 ### 清理dist目录
+
 只要文件改动，每次构建，我们的 /dist 文件夹都会保存生成的文件，然后就会非常杂乱。通常，在每次构建前清理 /dist 文件夹，是比较推荐的做法
 
 [clean-webpack-plugin](https://www.npmjs.com/package/clean-webpack-plugin "clean-webpack-plugin") 是一个比较普及的管理插件，让我们安装和配置下。
@@ -524,13 +549,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 npm install clean-webpack-plugin --save-dev
 ```
 
-
 webpack.product.config.js
+
 ```javascript
 + const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
   module.exports = {
-	...
+    ...
     plugins: [
 +     new CleanWebpackPlugin()
     ],
@@ -541,13 +566,17 @@ webpack.product.config.js
 现在执行 npm run build，再检查 /dist 文件夹。如果一切顺利，你现在应该不会再看到旧的文件，只有构建后生成的文件！
 
 ### 图片加载优化
+
 file-loader处理文件的导入
 [image-webpack-loader](https://www.npmjs.com/package/image-webpack-loader "image-webpack-loader")可以帮助我们对图片进行压缩和优化
+
 ```javascript
 npm install --save-dev file-loader
 npm install image-webpack-loader --save-dev
 ```
+
 使用：
+
 ```javascript
 module: {
     rules: [
@@ -583,15 +612,16 @@ module: {
   }
 ```
 > 在css中引入的图片通过file-loader处理后还能正常显示，但是如何在html中引入图片？
+像下面这样象ejs的写法
+
 ```javascript
 <img src=" <%= require('./assets/images/webpack.jpg')%> alt="">"
 ```
 
 > image-webpack-loader 在使用过程中报错，解决方法未知？？？？
 
-
-
 ### 图片处理为base64
+
 `url-loader`功能类似于 `file-loader`，可以把 url 地址对应的文件，打包成 base64 的 DataURL，提高访问的效率。
 
 如何使用：
@@ -599,7 +629,7 @@ module: {
 ```javascript
 npm install --save-dev url-loader
 ```
- 
+
 webpack.config.js
 
 ```javascript
@@ -1331,227 +1361,151 @@ module.exports = {
 };
 ```
 
-## 解析(resolve)
+## [解析(resolve)](https://webpack.docschina.org/configuration/resolve/ "解析(resolve)")
 配置模块如何解析。比如： import _ from 'lodash' ,其实是加载解析了lodash.js文件。此配置就是设置加载和解析的方式。
 
-resolve.alias
-创建 import 或 require 的别名，来确保模块引入变得更简单。例如，一些位于 src/ 文件夹下的常用模块：
+**resolve.alias**
+别名，实际上就是编码的时候用一个别名取代一长串路径，而实际执行的时候依旧是通过路径来引入。
 
+这个配置项的使用场景通常是一个模块所在的路径过深，例如，一些位于 src/ 文件夹下的常用模块:
+```javascript
 // webpack.config.js
 module.exports = {
-  mode: 'production',
-  entry: './src/index.js',
-  output: {
-    filename: 'main.[hash].js',
-    path: path.resolve(__dirname, './dist')
-  },
-+ resolve: {
-+   alias: {
-+     vue$: path.resolve(__dirname, 'src/lib/vue/dist/vue.esm.js'),
-+     '@': path.resolve(__dirname, 'src/')
-+   }
-+ }
+...
+ resolve: {
+   alias: {
+     vue$: path.resolve(__dirname, 'src/lib/vue/dist/vue.esm.js'),
+     '@': path.resolve(__dirname, 'src/')
+   }
+ }
   ...
 }
+```
 
-// index.js
-// 在我们的index.js文件中，就可以直接import
-import vue from 'vue';
-// 等价于
-import vue from  'src/lib/vue/dist/vue.esm.js';
-Copy to clipboardErrorCopied
-resolve.extensions的应用
-自动解析确定的扩展。
+**resolve.extensions**
 
-// webpack.config.js
+在导入语句没带文件后缀时，Webpack 会自动带上后缀后去尝试访问文件是否存在。  resolve.extensions 用于配置在尝试过程中用到的后缀列表，默认是：
+
+```javascript
+extensions: ['.js', '.json']
+```
+也就是说当遇到  `require('./data')`  这样的导入语句时，Webpack 会先去寻找  ./data.js  文件，如果该文件不存在就去寻找  ./data.json  文件， 如果还是找不到就报错。
+
+假如你想让 Webpack 优先使用目录下的 TypeScript 文件，可以这样配置：
+
+```javascript
+extensions: ['.ts', '.js', '.json']
+```
+> 给定对象的键后的末尾添加 $，以表示精准匹配
+
+**resolve.modules **
+
+告诉 webpack 解析模块时应该搜索的目录。
+
+> 绝对路径和相对路径都能使用，但是要知道它们之间有一点差异。
+
+> 通过查看当前目录以及祖先路径（即 ./node_modules, ../node_modules 等等），相对路径将类似于 Node 查找 'node_modules' 的方式进行查找。
+
+> 使用绝对路径，将只在给定目录中搜索。
+
+如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules/ 搜索：
+
+webpack.config.js
+```javascript
 module.exports = {
-  mode: 'production',
-  entry: './src/index.js',
-  output: {
-    filename: 'main.[hash].js',
-    path: path.resolve(__dirname, './dist')
-  },
+  //...
   resolve: {
-    alias: {
-      vue$: path.resolve(__dirname, 'src/lib/vue/dist/vue.esm.js'),
-      '@': path.resolve(__dirname, 'src/')
-    },
-+   extensions: [".js", ".vue",".json"]   // 默认值: [".js",".json"]
+  	// 默认：modules: ['node_modules']
+    modules: [path.resolve(__dirname, 'src'), 'node_modules']
   }
-  ...
-}
-Copy to clipboardErrorCopied
-给定对象的键后的末尾添加 $，以表示精准匹配
+};
+```
 
-外部扩展(externals)
+
+## 外部扩展(externals)
 externals 配置选项提供了「从输出的 bundle 中排除依赖」的方法。 文档
 
 例如，从 CDN 引入 jQuery，而不是把它打包：
 
-index.html
 
-<script
-  src="https://code.jquery.com/jquery-3.1.0.js"
-  integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
-  crossorigin="anonymous">
-</script>
-Copy to clipboardErrorCopied
-webpack.config.js
 
-// webpack.config.js
-module.exports = {
-  mode: 'production',
-  entry: './src/index.js',
-  output: {
-    filename: 'main.[hash].js',
-    path: path.resolve(__dirname, './dist')
-  },
-  alias: {
-    extensions: [".js", ".vue",".json"]   // 默认值: [".js",".json"]
-    vue$: path.resolve(__dirname, 'src/lib/vue/dist/vue.esm.js'),
-    '@': path.resolve(__dirname, 'src/')
-  },
-+ externals: {
-+   jquery: 'jQuery'
-+ },
-  ...
-}
-Copy to clipboardErrorCopied
-这样就剥离了那些不需要改动的依赖模块，换句话，下面展示的代码还可以正常运行：
+##  构建目标（target）
 
-import $ from 'jquery';
 
-$('.my-element').animate(...);
-Copy to clipboardErrorCopied
-具有外部依赖(external dependency)的 bundle 可以在各种模块上下文(module context)中使用，例如 CommonJS, AMD, 全局变量和 ES2015 模块。外部 library 可能是以下任何一种形式：
 
-root：可以通过一个全局变量访问 library（例如，通过 script 标签）。
-commonjs：可以将 library 作为一个 CommonJS 模块访问。
-commonjs2：和上面的类似，但导出的是 module.exports.default.
-amd：类似于 commonjs，但使用 AMD 模块系统。
-不同的配置方式：
 
-externals : {
-  react: 'react'
-}
-
-// 或者
-
-externals : {
-  lodash : {
-    commonjs: "lodash",
-    amd: "lodash",
-    root: "_" // 指向全局变量
-  }
-}
-
-// 或者
-
-externals : {
-  subtract : {
-    root: ["math", "subtract"]   // 相当于： window.math.substract
-  }
-}
-Copy to clipboardErrorCopied
-构建目标(targets)
-webpack 能够为多种环境或 target 构建编译。想要理解什么是 target 的详细信息，请阅读 target 概念页面。
-
-target: 告知 webpack 为目标(target)指定一个环境。
-
-可以支持以下字符串值：
-
-选项	描述
-async-node	编译为类 Node.js 环境可用（使用 fs 和 vm 异步加载分块）
-electron-main	编译为 Electron 主进程。
-electron-renderer	编译为 Electron 渲染进程，使用 JsonpTemplatePlugin, FunctionModulePlugin 来为浏览器环境提供目标，使用 NodeTargetPlugin 和 ExternalsPlugin 为 CommonJS 和 Electron 内置模块提供目标。
-node	编译为类 Node.js 环境可用（使用 Node.js require 加载 chunk）
-node-webkit	编译为 Webkit 可用，并且使用 jsonp 去加载分块。支持 Node.js 内置模块和 nw.gui 导入（实验性质）
-web	编译为类浏览器环境里可用（默认）
-webworker	编译成一个 WebWorker
-例如，当 target 设置为 "electron"，webpack 引入多个 electron 特定的变量.
-
-webpack.config.js
-
-// webpack.config.js
-module.exports = {
-  mode: 'production',
-  entry: './src/index.js',
-  output: {
-    filename: 'main.[hash].js',
-    path: path.resolve(__dirname, './dist')
-  },
-  alias: {
-    extensions: [".js", ".vue",".json"]   // 默认值: [".js",".json"]
-    vue$: path.resolve(__dirname, 'src/lib/vue/dist/vue.esm.js'),
-    '@': path.resolve(__dirname, 'src/')
-  },
-  externals: {
-    jquery: 'jQuery'
-  },
-+ target: 'node'
-  ...
-}
-Copy to clipboardErrorCopied
-相关的loader列表
+## 相关的loader列表
 webpack 可以使用 loader 来预处理文件。这允许你打包除 JavaScript 之外的任何静态资源。你可以使用 Node.js 来很简单地编写自己的 loader。
 
-文件
-raw-loader 加载文件原始内容（utf-8）
-val-loader 将代码作为模块执行，并将 exports 转为 JS 代码
-url-loader 像 file loader 一样工作，但如果文件小于限制，可以返回 data URL
-file-loader 将文件发送到输出文件夹，并返回（相对）URL
-JSON
-json-loader 加载 JSON 文件（默认包含）
-json5-loader 加载和转译 JSON 5 文件
-cson-loader 加载和转译 CSON 文件
-转换编译(Transpiling)
-script-loader 在全局上下文中执行一次 JavaScript 文件（如在 script 标签），不需要解析
-babel-loader 加载 ES2015+ 代码，然后使用 Babel 转译为 ES5
-buble-loader 使用 Bublé 加载 ES2015+ 代码，并且将代码转译为 ES5
-traceur-loader 加载 ES2015+ 代码，然后使用 Traceur 转译为 ES5
-ts-loader 或 awesome-typescript-loader 像 JavaScript 一样加载 TypeScript 2.0+
-coffee-loader 像 JavaScript 一样加载 CoffeeScript
-模板(Templating)
-html-loader 导出 HTML 为字符串，需要引用静态资源
-pug-loader 加载 Pug 模板并返回一个函数
-jade-loader 加载 Jade 模板并返回一个函数
-markdown-loader 将 Markdown 转译为 HTML
-react-markdown-loader 使用 markdown-parse parser(解析器) 将 Markdown 编译为 React 组件
-posthtml-loader 使用 PostHTML 加载并转换 HTML 文件
-handlebars-loader 将 Handlebars 转移为 HTML
-markup-inline-loader 将内联的 SVG/MathML 文件转换为 HTML。在应用于图标字体，或将 CSS 动画应用于 SVG 时非常有用。
-样式
-style-loader 将模块的导出作为样式添加到 DOM 中
-css-loader 解析 CSS 文件后，使用 import 加载，并且返回 CSS 代码
-less-loader 加载和转译 LESS 文件
-sass-loader 加载和转译 SASS/SCSS 文件
-postcss-loader 使用 PostCSS 加载和转译 CSS/SSS 文件
-stylus-loader 加载和转译 Stylus 文件
-清理和测试(Linting && Testing)
-mocha-loader 使用 mocha 测试（浏览器/NodeJS）
-eslint-loader PreLoader，使用 ESLint 清理代码
-jshint-loader PreLoader，使用 JSHint 清理代码
-jscs-loader PreLoader，使用 JSCS 检查代码样式
-coverjs-loader PreLoader，使用 CoverJS 确定测试覆盖率
-框架(Frameworks)
-vue-loader 加载和转译 Vue 组件
-polymer-loader 使用选择预处理器(preprocessor)处理，并且 require() 类似一等模块(first-class)的 Web 组件
-angular2-template-loader 加载和转译 Angular 组件
-Awesome 更多第三方 loader，查看 awesome-webpack 列表。
-打包分析优化
+**文件**
+- raw-loader 加载文件原始内容（utf-8）
+- val-loader 将代码作为模块执行，并将 exports 转为 JS 代码
+- url-loader 像 file loader 一样工作，但如果文件小于限制，可以返回 data URL
+- file-loader 将文件发送到输出文件夹，并返回（相对）URL
+
+**JSON**
+- json-loader 加载 JSON 文件（默认包含）
+- json5-loader 加载和转译 JSON 5 文件
+- cson-loader 加载和转译 CSON 文件
+
+**转换编译(Transpiling)**
+- script-loader 在全局上下文中执行一次 JavaScript 文件（如在 script 标签），不需要解析
+- babel-loader 加载 ES2015+ 代码，然后使用 Babel 转译为 ES5
+- buble-loader 使用 Bublé 加载 ES2015+ 代码，并且将代码转译为 ES5
+- traceur-loader 加载 ES2015+ 代码，然后使用 Traceur 转译为 ES5
+- ts-loader 或 awesome-typescript-loader 像 JavaScript 一样加载 TypeScript 2.0+
+- coffee-loader 像 JavaScript 一样加载 CoffeeScript
+
+**模板(Templating)**
+- html-loader 导出 HTML 为字符串，需要引用静态资源
+- pug-loader 加载 Pug 模板并返回一个函数
+- jade-loader 加载 Jade 模板并返回一个函数
+- markdown-loader 将 Markdown 转译为 HTML
+- react-markdown-loader 使用 markdown-parse parser(解析器) 将 Markdown 编译为 React 组件
+- posthtml-loader 使用 PostHTML 加载并转换 HTML 文件
+- handlebars-loader 将 Handlebars 转移为 HTML
+- markup-inline-loader 将内联的 SVG/MathML 文件转换为 HTML。在应用于图标字体，或将 CSS 动画应用于 SVG 时非常有用。
+
+**样式**
+- style-loader 将模块的导出作为样式添加到 DOM 中
+- css-loader 解析 CSS 文件后，使用 import 加载，并且返回 CSS 代码
+- less-loader 加载和转译 LESS 文件
+- sass-loader 加载和转译 SASS/SCSS 文件
+- postcss-loader 使用 PostCSS 加载和转译 CSS/SSS 文件
+- stylus-loader 加载和转译 Stylus 文件
+
+**清理和测试(Linting && Testing)**
+
+- mocha-loader 使用 mocha 测试（浏览器/NodeJS）
+- eslint-loader PreLoader，使用 ESLint 清理代码
+- jshint-loader PreLoader，使用 JSHint 清理代码
+- jscs-loader PreLoader，使用 JSCS 检查代码样式
+- coverjs-loader PreLoader，使用 CoverJS 确定测试覆盖率
+
+**框架(Frameworks)**
+- vue-loader 加载和转译 [Vue 组件](https://vuejs.org/v2/guide/components.html "Vue 组件")
+- polymer-loader 使用选择预处理器(preprocessor)处理，并且 require() 类似一等模块(first-class)的 Web 组件
+- angular2-template-loader 加载和转译 [Angular 组件](https://angular.io/ "Angular 组件")
+- Awesome 更多第三方 loader，查看 [awesome-webpack 列表](https://github.com/webpack-contrib/awesome-webpack#loaders "awesome-webpack 列表")。
+
+## 打包分析优化
 webpack-bundle-analyzer插件可以帮助我们分析打包后的图形化的报表。
 
 仅仅在开发环境使用。
 
 安装
 
+```javascript
 npm install --save-dev webpack-bundle-analyzer
-Copy to clipboardErrorCopied
+```
+使用
+```javascript
 + const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
   module.exports = {
     plugins: [
 +     new BundleAnalyzerPlugin()
     ]
   }
-Copy to clipboardErrorCopied
-自动生成一个网页报表，如下所示：
+```
+
+自动生成一个网页报表
