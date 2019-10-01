@@ -7,16 +7,18 @@
     <title>心动效果</title>
     <style>
         .textCon{
-            margin: 10px auto;
+            margin: 100px auto 0;
             width: 100px;
             height: 50px;
             text-align: center;
+            position: relative;
 
         }
         .heart{
-            position: relative;
+            position:absolute;
             width: 50px;
             height: 50px;
+            left: 50%;
             margin: 50px auto;
             background-color: red;
             transform: rotate(45deg);
@@ -68,10 +70,10 @@
             };
             100%{
                 opacity: 0.3;
-                top: -1000px
+                 top: -1000px  
             }
             
-        }
+        }  
     
     </style>
 </head>
@@ -85,14 +87,14 @@
         var box = document.getElementsByClassName('textCon')[0]
 
         function createHeart(){
-            for(var i=0;i<20;i++){
+            for(var i=0;i<1;i++){
                 var ele = document.createElement('div')
                 var width = box.offsetWidth
                 var height = box.offsetHeight
                 ele.classList.add('heart')
                 ele.style.width = "25px";
                 ele.style.height = "25px";
-                ele.style.bottom = '20px'
+                ele.style.bottom = '-20px'
                 ele.style.left = ran(0,width)+'px';
                 ele.style.animation='hearts 1s ease-in infinite';
                 ele.style.animationDelay = ran(0,30)+'s'
