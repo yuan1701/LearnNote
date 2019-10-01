@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时钟</title>
+    <style>
+        #myCanvas {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -250px;
+            margin-left: -250px;
+            /* border: 1px solid red */
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+</body>
+<script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.strokeStyle = "#00ffff";
+    ctx.lineWidth = 17;
+    // ctx.shadowColor = '#00ffff'
+    // ctx.shadowBlur = 15;
+
+
+    // ctx.moveTo(100, 100)
+    // ctx.lineTo(200, 200)
+    ctx.lineCap = 'round';
+
+    /** lineCap 属性设置或返回线条末端线帽的样式。ps："round" 和 "square" 会使线条略微变长。*/
+    // ctx.arc(x,y,r,sAngle,eAngle,counterclockwise);
+    // ctx.arc(250,250,50,270*Math.PI/180, 0.5*Math.PI, 1)
+
+
+    function renderTime() {
+        var date = new Date();
+        // 把 Date 对象的日期部分转换为可读字符串：Mon Sep 30 2019
+        var today = date.toDateString()
+        // 当前时间 2019/9/30
+        var time = date.toLocaleDateString()
+        var h = date.getHours()
+        var m = date.getMinutes()
+        var s = date.getSeconds()
+        var ms = date.getUTCMilliseconds()
+        var smoothSec = s + ms / 1000;
+        var smoothMin = m + smoothSec / 60;
+        // console.log(today, time, h, m, s, Math.PI)
+
+        // 背景渐变
+        var grd = ctx.createRadialGradient(250, 250, 5, 250, 250, 300);
+        grd.addColorStop(0, "#03303A");
+        grd.addColorStop(1, "#000");
+        ctx.fillStyle = grd;
+        ctx.fillRect(0, 0, 500, 500);
+
+        ctx.beginPath();
+        // 12小时 360度 30deg/时 
+        ctx.arc(250, 250, 200, degToRad(270), degToRad(h * 30 - 90))
+        ctx.stroke()
+        ctx.closePath()
+
+        ctx.beginPath();
+        // 60分钟 360度 6deg/时
+        ctx.arc(250, 250, 170, degToRad(270), degToRad(smoothMin * 6 - 90))
+        ctx.stroke()
+        ctx.closePath()
+
+
+        ctx.beginPath();
+        // 60s 360度 6deg/s
+        ctx.arc(250, 250, 140, degToRad(270), degToRad(smoothSec * 6 - 90))
+        ctx.stroke()
+        ctx.closePath()
+
+        // Date
+        ctx.font = "25px Helvetica";
+        ctx.fillStyle = 'rgba(0,255,255,1)';
+        ctx.fillText(today, 175, 250);
+
+        ctx.font = "25px Helvetica Bold";
+        ctx.fillStyle = 'rgba(0,255,255,1)';
+        ctx.fillText(h + ':' + m + ':' + s + ':' + ms, 175, 280);
+
+    }
+
+    setInterval(() => {
+        renderTime()
+    }, 40)
+
+    /** 弧度=角度*Math.PI/180 */
+    function degToRad(deg) {
+        var fac = Math.PI / 180
+        return deg * fac
+    }
+</script>
+
+</html>
