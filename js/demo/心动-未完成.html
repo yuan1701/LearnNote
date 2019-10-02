@@ -12,9 +12,9 @@
             height: 50px;
             text-align: center;
             position: relative;
-
         }
         .heart{
+            display: block;
             position:absolute;
             width: 50px;
             height: 50px;
@@ -37,7 +37,6 @@
            
         }
         .heart::before{
-            /* transform 和translate怎么老是分不清楚 */
             transform: translateY(-50%);  
         }
         .heart::after{
@@ -61,19 +60,18 @@
 
         @keyframes hearts {
             0%{
+                bottom: 0px;
+                transform: translateX(0px) rotate(45deg);
                 opacity: 0.3;
-                top: 0px;
-                transform: scale(0.8) rotate(45deg);
-            };
-            50%{
-                opacity: 1;
-            };
-            100%{
-                opacity: 0.3;
-                 top: -1000px  
             }
-            
-        }  
+            50%{
+                transform: translateX(10px) rotate(45deg);
+            }
+            100%{
+                bottom: 100px;
+                transform: translateX(-20px) rotate(45deg);
+            }
+        } 
     
     </style>
 </head>
@@ -81,23 +79,24 @@
     <div class="textCon">
         <span class="text">Hearts</span>
     </div>
-    <div class="heart"></div>
+    <i class="heart"></i>
 
     <script>
         var box = document.getElementsByClassName('textCon')[0]
 
         function createHeart(){
-            for(var i=0;i<1;i++){
+            for(var i=0;i<6;i++){
                 var ele = document.createElement('div')
                 var width = box.offsetWidth
                 var height = box.offsetHeight
                 ele.classList.add('heart')
                 ele.style.width = "25px";
                 ele.style.height = "25px";
-                ele.style.bottom = '-20px'
+                ele.style.bottom = '-25px'
                 ele.style.left = ran(0,width)+'px';
                 ele.style.animation='hearts 1s ease-in infinite';
-                ele.style.animationDelay = ran(0,30)+'s'
+                ele.style.animationDelay = i+'s'
+                ele.style.animationDuration = ran(6,10)+'s'
 
                 box.appendChild(ele)
             }

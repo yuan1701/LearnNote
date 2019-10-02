@@ -1,46 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>练习题</title>
 </head>
+
 <body>
     <script>
-        function a(xx){
+        function a(xx) {
             this.x = xx
             return this
         }
-        var x=a(6)
-        console.log(a(6)) //window
+        var x = a(5)
+        var y = a(6)
+        console.log(x.x) //window
+        // console.log(y.x)
+        /**
+        * 首先函数中的this指向window，当X=a(5),x=window,当y=a(6)的时候，x被覆盖为6所以x.x=6.6,x作为number类型的属性（包装类），不报错。返回undefined，
+        y.x也就是window.x,打印6
+        *
+        */
     </script>
     <script>
-        var a={}
-        b={key:'b'}
-        c={key:'c'}
-        a[b]=123;
-        a[c]=456;
+        var a = {}
+        b = { key: 'b' }
+        c = { key: 'c' }
+        a[b] = 123;
+        a[c] = 456;
         console.log(a[b]);  // 456
     </script>
 
     <script>
-        var b=1;
-        function outer(){
-            var b=2
-            function inner(){
+        var b = 1;
+        function outer() {
+            var b = 2
+            function inner() {
                 b++
-                var b=3;
+                var b = 3;
                 console.log(b) //3
             }
             inner()
         }
         outer()
-    
+
     </script>
 
     <script>
         console.log(typeof typeof 1) //string
     </script>
+
+    <script>
+        
+        function Point(x,y){
+            this.x=x;
+            this.y=y
+            this.moveTo=function(x,y){
+                this.x=x;
+                this.y=y;
+                console.log(this.x+','+this.y)
+
+            }
+
+        }
+        console.log('test5---------------------------')
+        var p1 = new Point(0,0)
+        var p2 = {x:0,y:0}
+        p1.moveTo(1,1)// 1,1
+        p1.moveTo.apply(p2,[10,10])// 10,10
+        
+        
+    
+    </script>
 </body>
+
 </html>
