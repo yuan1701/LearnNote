@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    body{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /* 写一个渐变背景 */
+        background-image: linear-gradient(125deg,#2c3e50,#27ae60,#e743ce,#8e44ad);
+        background-size: 400%;
+        animation: bgcolor 15s infinite;
+    }
+    .loading{
+        width: 200px;
+        height: 200px;
+        display: block;
+        border-top: 10px solid red;
+        border-radius: 50%;
+        position: relative;
+        animation: loading 2s linear infinite
+    }
+    .loading::before,.loading::after{
+        content:'';
+        display: block;
+        width: 200px;
+        height: 200px;
+        /* border-top: 5px solid yellowgreen; */
+        border-radius: 50%;
+        /* background: yellow; */
+        position: absolute;
+        left: 0;
+        top: -10px;
+    }
+    .loading::before{
+        border-top: 10px solid yellowgreen;
+        transform: rotate(120deg)
+    }
+    .loading::after{
+        border-top: 10px solid blue;
+        transform: rotate(-120deg)
+    }
+    .loading span{
+        display: block;
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        line-height: 200px;
+        color: #fff;
+        /* 动画要加在块元素上？ */
+        animation: _loading 2s linear infinite 
+    }
+    @keyframes loading {
+        to{
+            transform: rotate(360deg)
+        }
+    }
+    @keyframes _loading {
+        to{
+            transform: rotate(-360deg)
+        }
+    }
+    @keyframes bgcolor {
+        0%{
+            background-position: 0% 50%
+        }
+        50%{
+            background-position: 100% 50%
+        }
+        100%{
+            background-position: 0% 50%
+        }
+        
+    }
+    </style>
+</head>
+<body>
+    <!-- 找颜色网站：https://flatuicolors.com/ -->
+    <i class="loading"><span>loading...</span></i>
+</body>
+</html>
