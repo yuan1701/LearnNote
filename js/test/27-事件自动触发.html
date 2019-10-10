@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>27-事件自动触发</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function(){
+            /**
+             * 事件自动触发
+             * triggerHandler()
+             * trigger() 会触发事件冒泡
+             * 
+             * */
+
+            $('.outer').click(function(){
+                alert('outer')
+            })
+            // $('.outer').triggerHandler('click')
+            // $('.outer').trigger('click')
+
+
+             /**
+             * triggerHandler() 不会触发事件冒泡
+             * trigger() 会触发事件冒泡
+             * 
+             * */
+
+
+            $('.inner').click(function(event){
+                alert('inner');
+            })
+
+            //  $('.inner').triggerHandler('click')
+            //  $('.inner').trigger('click')
+
+
+            /**
+             * triggerHandler() 不会触发事件默认行为
+             * trigger() 会触发事件默认行为
+             * 
+             * */
+
+            $('input[type="submit"]').click(function(){
+                alert('submit')
+            })
+
+            // $('input[type="submit"]').triggerHandler('click')
+            // $('input[type="submit"]').trigger('click')
+
+            // Q：如果我的a标签希望自动触发点击事件并且完成跳转？？注意a的标签的triggerHandler()和trigger()是一样的
+
+            $('a>span').click(function(){
+                alert('注册')
+            })
+            $('a>span').trigger('click')
+
+        })
+    </script>
+
+    <style>
+    .outer{
+        background: #39f;
+        width: 100px;
+        height: 100px;
+    }
+    .inner{
+        background: #333;
+        width: 50px;
+        height: 50px;
+    }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner"></div>
+    </div>
+    <a href="http:www.baidu.com"><span>注册</span></a>
+    <form action="http:www.baidu.com">
+        <input type="text">
+        <input type="submit" value="提交">
+    </form>
+
+    <!-- 思考
+        1.什么是自动触发事件
+        2.jQuery中有几个方法可以自动触发事件
+        3.这几个方法有什么区别
+        4.自动触发事件的应用场景和如何选择使用哪一个方法？
+     
+    -->
+    
+</body>
+</html>

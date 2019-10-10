@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>25-jQuery移除事件off()</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+    $(function(){
+
+        function test1(){
+            alert('test1')
+        }
+        $('button').click(test1)
+
+        function test2(){
+            alert('test2')
+        }
+        $('button').click(test2)
+
+        $('button').mouseenter(function(){
+            alert('mouseenter')
+        })
+
+        // off() 无参数，移除所有的事件
+        // $('button').off()
+
+        // off('click') 1个参数，移除指定类型的事件
+        // $('button').off('click')
+
+        // off('click', test1) 2个参数，移除指定类型的指定事件
+        $('button').off('click',test1)
+
+    })
+    </script>
+
+</head>
+<body>
+    <button>点击</button>
+
+    <!-- 思考
+        1.off()方法不传参数，传一个参数，传两个参数有什么区别？
+        2.假设button添加了三个click事件，如何移除指定的一个？
+    -->
+    
+</body>
+</html>

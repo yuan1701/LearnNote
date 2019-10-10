@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>19-jQuery中操作类的相关方法</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <style>
+        div{
+            border: 1px solid red;
+            width: 100px;
+            height: 100px;
+        }
+        .class1{
+            background: #2d2
+        }
+        .class2{
+            border: 2px solid yellow
+        }
+    </style>
+    <script>
+        $(function(){
+            /*
+            1.addClass(class|fn)
+            作用：添加一个类
+            ps:如果类名有多个，用空格隔开
+
+            2.removeClass(class|fn)
+            作用：删除一个类
+            ps:如果类名有多个，用空格隔开
+
+            3.toggleClass(class|fn)
+            作用：切换类，
+            ps:有就删除没有就添加
+            
+            */
+
+
+            var btns = document.getElementsByTagName('button')
+
+            btns[0].onclick=function(){
+                $('div').addClass('class1 class2')
+            }
+            btns[1].onclick=function(){
+                $('div').removeClass('class1')
+            }
+            btns[2].onclick=function(){
+                $('div').toggleClass('class1 class2 class3')
+            }
+        })
+    </script>
+</head>
+<body>
+    <!-- 
+        思考：
+        1.addClass(),removeClass(),toggleClass()
+        2.如何添加删除多个类
+        3.有没有返回值?是什么?
+        返回一个init
+
+     -->
+    <button class="btn">添加类</button>
+    <button>删除类</button>
+    <button>切换类</button>
+    <div></div>
+
+</body>
+</html>

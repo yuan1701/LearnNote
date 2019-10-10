@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>30-jQuery事件命名空间(面试题)</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function(){
+            /**
+             * jQuery事件命名空间要满足两个条件
+             * 1.事件通过on绑定
+             * 2.通过trigger()来触发
+             * 
+             * */
+
+            $('.outer').on('click.zs',function(){
+                console.log(1)
+                alert('zs outer')
+            })
+            $('.outer').on('click',function(){
+                alert('outer')
+            })
+            $('.inner').on('click',function(){
+                alert('inner')
+            })
+            $('.inner').on('click.zs',function(){
+                alert('zs inner')
+            })
+            /*  子元素带相同命名空间的事件都会被触发 */
+            // $('.inner').triggerHandler('click.zs') // 不会事件冒泡
+            /*  子元素相同事件都会被触发 */
+            // $('.inner').triggerHandler('click') // 不会事件冒泡
+
+
+            /*  父元素带相同命名空间的事件会被触发，没有命名空间的事件不会被触发  */
+            // $('.inner').trigger('click.zs') 
+             /*  父子元素相同事件都会被触发 */
+            // $('.inner').trigger('click') // 都会执行
+
+        })
+    </script>
+
+    <style>
+    .outer{
+        background: #39f;
+        width: 100px;
+        height: 100px;
+    }
+    .inner{
+        background: #ff4;
+        width: 50px;
+        height: 50px;
+    }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner"></div>
+    </div>
+
+    <!-- 思考
+        1.父子元素注册了多个相同类型事件，其中有的带命名空间，有的不带，请回答如下问题：
+        1.1 子元素不带命名空间的事件被trigger调用，父元素带命名空间的市价会不会被调用？
+        1.2 子元素不带命名空间的事件被triggerHandler调用，父元素带命名空间的市价会不会被调用？
+     
+    -->
+    
+</body>
+</html>

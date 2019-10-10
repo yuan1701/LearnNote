@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>32-jQuery移入和移出事件</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function(){
+            /*
+            移入和移出事件
+            
+            */
+            $('.outer').mouseout(function(){
+                console.log('mouseout');
+            })
+        })
+    
+    </script>
+
+    <style>
+    .outer{
+        background: #39f;
+        width: 100px;
+        height: 100px; 
+    }
+    .inner{
+        background: #ff4;
+        width: 50px;
+        height: 50px;
+    }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner"></div>
+    </div>
+
+    <!-- 思考
+        1.mouseover&mouseenter的区别
+        2.在企业开发中移入和移出最常见的的应用场景有哪些
+        3.jQuery的hover()事件内部是如何实现的？
+    -->
+    
+</body>
+</html>
