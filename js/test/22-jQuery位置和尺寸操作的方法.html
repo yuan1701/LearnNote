@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>22-jQuery位置和尺寸操作的方法</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0
+        }
+        .outer{
+            width: 150px;
+            height: 150px;
+            padding: 20px;
+            border: 10px solid red;
+            position: relative;
+            margin-left: 20px;
+        }
+        .inner{
+            width: 50px;
+            height: 50px;
+            background: yellowgreen;
+            position: absolute;
+            left: 50px;
+            top: 50px;
+        }
+    </style>
+    <script>
+    $(function(){
+
+       /** jQuery 提供多个处理尺寸的重要方法：
+
+            width()
+            height()
+            innerWidth()
+            innerHeight()
+            outerWidth()
+            outerHeight()
+        */
+
+        $('button').eq(0).click(function(){
+            // 获取元素大小
+            console.log('outer的width():',$('.outer').width())
+            console.log('outer的innerWidth():',$('.outer').innerWidth())
+            console.log('outer的outerWidth():',$('.outer').outerWidth())
+            console.log('outer的outerWidth(true):',$('.outer').outerWidth(true))
+        })
+        $('button').eq(1).click(function(){
+            // 改变元素大小
+            $('.outer').width('500px')
+            $('.outer').innerWidth('500px')
+            $('.outer').outerWidth('500px')
+        })
+
+        /** jQuery 提供多个处理位置的方法：
+
+            offset() 
+            postion()
+     
+        */
+
+        $('button').eq(2).click(function(){
+            // 获取元素位置
+            console.log('outer的距离窗口的left值',$('.outer').offset().left);
+            console.log('inner的距离窗口的left值',$('.inner').offset().left);
+
+            console.log('outer的距离定位父级的left值',$('.outer').position().left);
+            console.log('inner的距离定位父级的left值',$('.inner').position().left);
+
+
+          
+        })
+        $('button').eq(3).click(function(){
+            // 改变元素相对于视口的位置
+            $('.inner').offset({left:0})
+
+            // ps: $('.inner').position({left:0}) 是不起作用的 position()只能获取不能设置
+            
+        })
+        
+        
+
+    })
+    </script>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner"></div>
+    </div>
+    <button>获取尺寸</button>
+    <button>设置尺寸</button>
+    <button>获取位置</button>
+    <button>设置位置</button>
+    <!-- 思考：
+    
+        1.width()方法获取的宽度包含边框吗？
+        2.innerWidth()方法和outerWidth()方法分别有什么作用
+        innerWidth()=width+padding-left+padding-right
+        outerWidth() = innerWidth() + 左右边框
+        outerWidth(true) = outerWidth() + 左右margin
+
+        3.offset()和position()方法的区别？
+    -->
+</body>
+</html>
