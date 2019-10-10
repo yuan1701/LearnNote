@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>20-jQuery文本值的相关操作</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script>
+    $(function(){
+        /*
+        1.html()
+        类似js里的innerHTML: document.getElementsByTagName('div')[0].innerHTML = '111'
+        2.text()
+        类似js里的innerText: document.getElementsByTagName('input')[0].innerText = '<br/>'
+        3.val()
+        类似js里的value: document.getElementsByTagName('input')[0].value = '123'
+
+        */
+        var btns = document.getElementsByTagName('button')
+
+        btns[0].onclick=function(){
+            $('div').html('<p>我是p标签 <span>我是span</span></p>')
+        }
+        btns[1].onclick=function(){
+           console.log( $('div').html())
+        }
+        btns[2].onclick=function(){
+            $('div').text('<p>我是p标签 <span>我是span</span></p>')
+        }
+        btns[3].onclick=function(){
+            console.log($('div').text())
+        }
+        btns[4].onclick=function(){
+            $('input').val('enter content')
+        }
+        btns[5].onclick=function(){
+            console.log($('input').val())
+        }
+
+
+        
+    })
+    </script>
+    <style>
+        div{
+            width: 200px;
+            height: 100px;
+            border: 1px solid red
+        }
+    </style>
+</head>
+<body>
+    
+    <button>设置html</button>
+    <button>获取html</button>
+    <button>设置text</button>
+    <button>获取text</button>
+    <button>设置val</button>
+    <button>获取val</button>
+    <div></div>
+    <input type="text" name="" id="">
+
+    <!-- 
+    思考：
+    1.html() 方法相当于原生js的什么方法
+    2、text()方法想当于原生js的什么方法
+    3.val()方法可以获取li里面的内容吗？ 
+     <li>我是li</li>
+
+    $('li').val()  // 0
+
+    -->
+    
+</body>
+</html>
