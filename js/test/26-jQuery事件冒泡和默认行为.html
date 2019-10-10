@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>26-jQuery事件冒泡和默认行为</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function(){
+            /**
+             * 1.什么是事件冒泡
+             * 2.如何阻止事件冒泡
+             * 3.什么是默认行为
+             * 4.如何阻止默认行为
+             * */
+
+            $('.outer').click(function(){
+                alert('outer')
+            })
+            $('.inner').click(function(event){
+                alert('inner');
+                // 第一种
+                // return false 
+                // 第二种
+                event.stopPropagation()        
+            })
+
+
+            $('a').click(function(event){   // click 会比href优先执行
+                alert('a标签')
+                // return false
+                event.preventDefault()
+
+            })
+
+            $('input').eq(1).click(function(event){
+                alert('submit')
+                // return false
+                event.preventDefault()
+            })
+
+        })
+    </script>
+
+    <style>
+    .outer{
+        background: #39f;
+        width: 100px;
+        height: 100px;
+    }
+    .inner{
+        background: #333;
+        width: 50px;
+        height: 50px;
+    }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner"></div>
+    </div>
+    <a href="http:www.baidu.com">百度</a>
+    <form action="http:www.baidu.com">
+        <input type="text">
+        <input type="submit" value="提交">
+    </form>
+
+    <!-- 思考
+    
+        1.什么是事件冒泡
+        2.jQuery中阻止事件冒泡的方式有几种
+        3.为什么要阻止事件冒泡
+        4.什么是默认行为
+        5.如何阻止默认行为
+        6.那些场景需要阻止默认行为
+    -->
+    
+</body>
+</html>
