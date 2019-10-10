@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>47-jQuery自定义动画</title>
+    <script src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/js/lib/jquery-1.10.2_1c4228b8.js"></script>
+    <script>
+        $(function(){
+            /*
+              自定义动画
+                animate(p,[s],[e],[fn])1.8*
+                第一个参数：对象，可以在对象中修改属性
+                第二个参数：动画时长
+                第三个参数：动画节奏，默认是swing
+                第四个参数：回调
+            */
+            $('button').eq(0).click(function(){
+                // $('.one').animate({
+                //     width:500
+                // },1000,function(){
+                //     alert('animate over')
+                // })
+
+                $('.one').animate({
+                    marginLeft:500
+                },1000,'swing',function(){
+                })
+                $('.two').animate({
+                    marginLeft:500
+                },1000,'linear',function(){
+                })
+            })
+            
+
+            $('button').eq(1).click(function(){
+                $('.one').animate({
+                    width:'+=100'
+                },1000,'linear',function(){
+                    alert('animate over')
+                })
+            })
+
+            $('button').eq(2).click(function(){
+                $('.one').animate({
+                    // width:'hide'
+                    width:'toggle'
+
+                },1000,'linear',function(){
+                    alert('animate over')
+                })
+            })
+
+          
+        })
+    
+    </script>
+
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        div{
+            width: 100px;
+            height: 100px; 
+        }
+        .one{
+            background: #39f;
+        }
+        .two{
+            background: red;
+        }
+    
+    </style>
+</head>
+<body>
+    <button>操作属性</button>
+    <button>累加属性</button>
+    <button>关键字</button>
+
+    <div class="one"></div>
+    <div class="two"></div>
+
+
+    <!-- 思考
+        1.如何利用自定义动画在上一次动画完毕的状态或者位置的基础上继续执行动画？
+        2.如果在第一个参数中同时操作多个属性，多个属性的动画会按照顺序执行还是一起执行
+    -->
+
+    
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>46-弹框广告</title>
+    <script src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/js/lib/jquery-1.10.2_1c4228b8.js"></script>
+    <script>
+        $(function(){
+            /*
+                淡入淡出动画
+                fadeIn([s],[e],[fn])
+                fadeOut([s],[e],[fn])
+                fadeTo([[s],o,[e],[fn]])
+                fadeToggle([s,[e],[fn]])
+            */
+
+            // 在执行动画执行用stop可以防止一些未知错误
+            $('.ad').stop().slideDown(1000).fadeOut(1000).fadeIn(1000)
+
+        })
+    </script>
+
+    <style>
+    .ad{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: none
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="ad">
+        <img src="./images/ad.png" alt="">
+    </div>
+
+    
+</body>
+</html>

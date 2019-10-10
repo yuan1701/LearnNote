@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>45-jQuery淡入淡出动画</title>
+    <script src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/js/lib/jquery-1.10.2_1c4228b8.js"></script>
+    <script>
+        $(function(){
+            /*
+                淡入淡出动画
+                fadeIn([s],[e],[fn])
+                fadeOut([s],[e],[fn])
+                fadeTo([[s],o,[e],[fn]])
+                fadeToggle([s,[e],[fn]])
+            */
+            $('button').eq(0).click(function(){
+                $('div').fadeIn(1000,function(){
+                    alert('fadeIn over')
+                })
+            })
+
+            $('button').eq(1).click(function(){
+                $('div').fadeOut(1000,function(){
+                    alert('fadeOut over')
+                })
+            })
+
+            $('button').eq(2).click(function(){
+                $('div').fadeToggle(1000,function(){
+                    alert('fadeToggle over')
+                })
+            })
+
+            $('button').eq(3).click(function(){
+                $('div').fadeTo(1000,0.5,function(){
+                    alert('fadeTo over')
+                })
+            })
+        })
+    
+    </script>
+
+    <style>
+    div{
+        background: #39f;
+        width: 100px;
+        height: 100px; 
+        display: none
+        /* visibility: hidden; */
+        /* opacity: 0; */
+    }
+    
+    </style>
+</head>
+<body>
+    <button>淡入</button>
+    <button>淡出</button>
+    <button>切换</button>
+    <button>切换到</button>
+
+    <div></div>
+
+    
+</body>
+</html>

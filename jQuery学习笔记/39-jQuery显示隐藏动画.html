@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>39-jQuery显示隐藏动画</title>
+    <script src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/js/lib/jquery-1.10.2_1c4228b8.js"></script>
+    <script>
+        $(function(){
+            /*
+                显示和隐藏 切换
+                show([s,[e],[fn]])
+                hide([s,[e],[fn]]
+                toggle()
+            */
+            $('button').eq(0).click(function(){
+                $('div').show(1000,function(){
+                    alert('show over')
+                })
+            })
+
+            $('button').eq(1).click(function(){
+                $('div').hide(1000,function(){
+                    alert('hide over')
+                })
+            })
+
+            $('button').eq(2).click(function(){
+                $('div').toggle(1000,function(){
+                    alert('toggle over')
+                })
+            })
+        })
+    
+    </script>
+
+    <style>
+    div{
+        background: #39f;
+        width: 100px;
+        height: 100px; 
+        display: none
+        /* visibility: hidden; */
+        /* opacity: 0; */
+    }
+    
+    </style>
+</head>
+<body>
+    <button>显示</button>
+    <button>隐藏</button>
+    <button>切换</button>
+    <div></div>
+
+    <!-- 思考
+        1.show()方法内部原理是什么
+        2.show()方法设置动画时长的单位是什么
+        3.show()方法的slow，mormal，fast有什么用
+        slow--600ms
+        fast--200ms
+        4.show()方法的默认时长 0
+    -->
+    
+</body>
+</html>

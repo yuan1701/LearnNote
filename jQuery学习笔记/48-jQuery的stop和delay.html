@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>48-jQuery的stop和delay</title>
+    <script src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/js/lib/jquery-1.10.2_1c4228b8.js"></script>
+    <script>
+        $(function(){
+            /*
+              jQuery的stop和delay
+            */
+            $('button').eq(0).click(function(){
+                // $('.one').animate({
+                //     width:500,
+                //     height:500
+                // },1000)
+                $('.one').animate({
+                    width:500,
+                },1000).delay(1000).animate({height:500},1000)
+              
+            })
+            
+
+            $('button').eq(1).click(function(){
+                // 停止当前动画，继续之后的动画
+                // $('div').stop()
+                // $('div').stop(false)
+                // $('div').stop(false,false)
+
+
+                 // 停止当前动画和之后的动画
+                // $('div').stop(true)
+                // $('div').stop(true,false)
+
+                // 立即完成当前动画，不执行之后的动画
+
+                // $('div').stop(true,true)
+
+                // 立即完成当前动画，继续执行之后的动画
+                $('div').stop(false,true)
+
+            })
+
+        })
+    
+    </script>
+
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        .one{
+            width: 100px;
+            height: 100px; 
+            background: #39f;
+        }
+        .two{
+            width: 500px;
+            height: 2px; 
+            background: red;
+        }
+    
+    </style>
+</head>
+<body>
+    <button>开始动画</button>
+    <button>停止动画</button>
+
+    <div class="one"></div>
+    <div class="two"></div>
+
+
+    <!-- 思考
+        1.用两中方法实现一个div先淡出在淡入，然后展开
+        2.delay()的作用
+        3.初学者为什么编写动画推荐先使用stop()在写动画
+        4.如果div添加多个动画，调用stop()是什么结果
+        5.如果div添加多个动画，调用stop(false,true)是什么结果
+    -->
+
+    
+</body>
+</html>
