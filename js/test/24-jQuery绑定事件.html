@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>24-jQuery绑定事件</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      $(function(){
+
+        /**
+         * 绑定事件的两种方法：
+         * 1.eventName(fn)
+         * 编码效率高   部分事件jQuery没有实现不能添加
+         * 2.on('eventName',fn)
+         * 编码效率低 所有js事件都支持
+         * */
+
+        // ps:可以添加多个相同或者不同类型的事件，不会覆盖
+
+
+        // $('button').click(function(){
+        //     alert('click1')
+        // })
+        // $('button').click(function(){
+        //     alert('click2')
+        // })
+        // $('button').mouseenter(function(){
+        //     alert('mouseenter')
+        // })
+        // $('button').mouseleave(function(){
+        //     alert('mouseleave')
+        // })
+
+        $('button').on('click',function(){
+            alert('click1')
+        })
+        $('button').on('click',function(){
+            alert('click2')
+        })
+        $('button').on('mouseenter',function(){
+            alert('mouseenter')
+        })
+        $('button').on('mouseleave',function(){
+            alert('mouseleave')
+        })
+      })
+    
+    </script>
+</head>
+<body>
+    <button>点击</button>
+
+    <!-- 思考
+        1.jQuery中常用的事件绑定方式有几种
+        2.企业开发中推荐使用哪一种
+        3.同时给元素 绑定多个相同事件是否会被覆盖
+    -->
+    
+</body>
+</html>
