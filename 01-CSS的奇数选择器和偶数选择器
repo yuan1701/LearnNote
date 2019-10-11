@@ -1,0 +1,5 @@
+p标签下的奇数行与偶数行
+
+p:nth-child(odd){} //奇数行
+
+p:nth-child(even){} //偶数行
