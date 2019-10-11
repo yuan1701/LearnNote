@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>54-jQuery复制节点的相关方法</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function(){
+            /* 复制节点
+
+            clone()
+            clone(false) 浅复制 只复制元素，不复制绑定的事件
+            clone(true)  深复制 复制元素和元素绑定的事件
+
+            
+            */
+           $('button').eq(0).click(function(){
+            //    浅复制
+
+                $clone = $('li:first').clone(false)
+
+                $('ul').append($clone)
+
+           })
+
+           $('button').eq(1).click(function(){
+            //    深复制
+                $clone = $('li:first').clone(true)
+
+                $('ul').append($clone)
+
+           })
+
+           $('li').click(function(){
+               alert($(this).text())
+           })
+            
+        })
+    
+    </script>
+</head>
+<body>
+    <button>浅复制节点</button>
+    <button>深复制节点</button>
+
+    <ul>
+        <li>我是第一个li</li>
+        <li>我是第二个li</li>
+        <li>我是第三个li</li>
+        <li>我是第四个li</li>
+    </ul>
+
+    <!--
+        思考
+         1.深浅复制有什么区别？
+         2.js怎么实现深浅复制？
+
+     -->
+    
+    
+</body>
+</html>
