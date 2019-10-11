@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Echarts03-异步数据加载和更新</title>
+    <script src="../js/echarts.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var option = {
+            title: {
+                text: 'Echarts03-异步数据加载和更新'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: []
+            }]
+        };
+
+        function fetchData(cb){
+            // 通过 setTimeout 模拟异步加载
+            setTimeout(function () {
+
+                cb({
+                    categories: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"],
+                    data: [5, 20, 36, 10, 10, 20]
+                });
+            }, 3000);
+        }
+        myChart.setOption(option)
+
+        myChart.showLoading()
+        fetchData(function (data){
+            myChart.hideLoading()
+            // 所有数据的更新都通过 setOption实现
+            myChart.setOption({
+                xAxis: {
+                    data: data.categories
+                },
+                series: [{
+                    // 根据名字对应到相应的系列
+                    name: '销量',
+                    data: data.data
+                }]
+            });
+            
+        })
+
+
+
+        
+    </script>
+</body>
+</html>
