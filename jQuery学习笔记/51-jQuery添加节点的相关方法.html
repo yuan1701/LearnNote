@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>51-jQuery添加节点的相关方法</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function(){
+            /* 内部插入
+            append()
+            appendTo()
+            会将元素添加到指定元素内部的最后,书写格式不同
+
+            prepend()
+            prependTo()
+            会将元素添加到指定元素内部的前面,书写格式不同
+
+
+            外部插入
+            after()
+            insertAfter()
+            会将元素添加到指定元素外部的后面
+
+            before()
+            insertBefore()
+            会将元素添加到指定元素外部的后面
+
+            
+            
+            */
+           $('button').click(function(){
+               $li = $('<li>我是新加的</li>')
+                // $('ul').append($li)
+                // $li.appendTo('ul')
+
+                // $('ul').prepend($li)
+                // $li.prependTo('ul')
+
+                // $('ul').after($li)
+                // $li.insertAfter('ul')
+
+                //  $('ul').before($li)
+                $li.insertBefore('ul')
+
+           })
+            
+        })
+    
+    </script>
+</head>
+<body>
+    <button>添加节点</button>
+    <ul>
+        <li>我是li1</li>
+        <li>我是li2</li>
+        <li>我是li3</li>
+    </ul>
+    <div>我是btn</div>
+    <!--
+        思考
+        1.append()和appendTo()的区别是什么
+        2.append() after() 的区别？
+
+     -->
+    
+    
+</body>
+</html>
