@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>52-jQuery删除节点的相关方法</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function(){
+            /* 删除节点
+
+            remove()
+
+            删除被选元素（及其子元素） 包含绑定事件和jQuery相关数据
+
+            empty()
+
+            从被选元素中删除子元素
+
+            detach()
+            删除被选元素（及其子元素） 不包含绑定事件和jQuery相关数据
+            
+            */
+           $('button').click(function(){
+            //    $('li').remove()
+            //    $('li').remove('.item')
+
+
+            // $('ul').empty()
+
+            // $('li').detach()
+            $('li').detach('.item')
+
+
+                
+
+           })
+            
+        })
+    
+    </script>
+</head>
+<body>
+    <button>删除节点</button>
+    <ul>
+        <li class="item">我是li1</li>
+        <li>我是li2</li>
+        <li>我是li3</li>
+    </ul>
+    <div>我是btn</div>
+    <!--
+        思考
+        1.元素调用empty()方法，元素自身会被删除吗？
+        2.remove和detach方法的异同点
+
+     -->
+    
+    
+</body>
+</html>
