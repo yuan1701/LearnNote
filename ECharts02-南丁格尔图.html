@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts02-南丁格尔图</title>
+    <!-- 引入 echarts.js -->
+    <script src="../js/echarts.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 1.顔色主題 'light','dark' 使用：echarts.init(dom, 'light');
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var option = {
+            backgroundColor: '#2c343c', // 全图默认背景
+
+            // 2.全局調色盤
+            color:[],
+        
+            // 3.通过 visualMap 组件将数值的大小映射到明暗度
+            visualMap: {
+                show: false,
+                min: 80,
+                max: 600,
+                inRange: {
+                    colorLightness: [0, 1]
+                }
+            },
+            series : [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    center : ['50%', '50%'],    // 默认全局居中
+                    clockWise : true,          // 默认逆时针
+                    radius: '50%',              // 图形大小
+                    minAngle: 60,                // 最小角度改为0 ,用途 ？
+                    selectedOffset: 0,         // 选中是扇区偏移量,无效？
+                    
+                    data:[
+                        {value:235, name:'视频广告'},
+                        {value:274, name:'联盟广告'},
+                        {value:310, name:'邮件营销'},
+                        {value:335, name:'直接访问'},
+                        {value:400, name:'搜索引擎'}
+                    ],
+                    roseType: 'angle',
+                    label: {
+                        normal: {
+                            textStyle: {
+                                fontSize:20,
+                                fontWeight: 'normal',
+                                color: 'rgba(255, 255, 255, 0.5)' //设置label字体颜色
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show:true, // 默认是true
+                            length: 20, //线的长短
+
+                            lineStyle: {
+                                width: 2,
+                                color: 'rgba(255, 255, 255, 0.7)' //线的粗细和颜色
+                            }
+                        }
+                    },
+                    // 直接样式设置（itemStyle、lineStyle、areaStyle、label、...）
+
+                    itemStyle: {
+                        // 普通樣式
+                        normal: {
+                            color: ['#c23531'], // 设置扇形的颜色
+                            borderColor: '#fff',
+                            borderWidth: 0,
+                            shadowBlur: 200,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)',
+                            label: {
+                                show: true,
+                                position: 'outer',  // 描述的位置：outer 或者inner
+                            
+                                // textStyle:null  // 可不写,使用全局的样式
+                            },
+                        },
+                        // 鼠标 hover 时候的高亮样式
+                        emphasis: {
+                            shadowBlur: 500,
+                            shadowColor: 'rgba(0, 0, 0, 0.8)',
+                            formatter:''// 高亮时标签的文字
+                        }
+                    }
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
