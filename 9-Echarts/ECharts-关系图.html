@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ECharts-关系图</title>
+<script src="../js/echarts.js"></script>
+ 
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+    .contain{
+        width: 70%;
+    }
+    .tool_box{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+   <div class="contain">
+        <div class="tool_box">
+                <div class="search">
+                    <input placeholder="产品线" type="text" name="" id="">
+                    <input placeholder="产品" type="text" name="" id="">
+            
+                    <button>搜索</button>
+                    <input placeholder="产品编码" type="text" name="" id="">
+                    <button>搜索</button>
+                </div>
+                <button>导出数据</button>
+            </div>
+            <div id="main" style="width: 900px; height: 800px;"></div>
+   </div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title: {
+                text: '关系图'
+            },
+        backgroundColor: '#2c343c',
+
+            tooltip: {
+                formatter:function(val){
+                    return val.data.name
+                }
+            },
+            animationDurationUpdate: 1500,
+            animationEasingUpdate: 'quinticInOut',
+            series : [
+                {
+                    type: 'graph',
+                    layout: 'none',
+                    symbolSize: 50,
+                    roam: true,
+                    label: {
+                        normal: {
+                            show: true
+                        }
+                    },
+                    edgeSymbol: ['circle', 'arrow'],
+                    edgeSymbolSize: [4, 10],
+                    edgeLabel: {
+                        normal: {
+                            textStyle: {
+                                fontSize: 20
+                            }
+                        }
+                    },
+                    data: [{
+                        name: '节点1',
+                        x: 300,
+                        y: 400,
+                    }, 
+                    {
+                        name: '节点2',
+                        x: 500,
+                        y: 400
+                    },
+                    {
+                        name: '子节点1',
+                        x: 300,
+                        y: 600,
+                        itemStyle:{
+                            color:'green'
+                        }
+                    }, {
+                        name: '子节点2',
+                        x: 500,
+                        y: 600,
+                        itemStyle:{
+                            color:'green'
+                        }
+                    },  {
+                        name: '父节点1',
+                        x: 300,
+                        y: 200,
+                        itemStyle:{
+                            color:'#39f'
+                        }
+                    }, {
+                        name: '父节点2',
+                        x: 700,
+                        y: 200,
+                        itemStyle:{
+                            color:'#39f'
+                        }
+                    }, {
+                        name: '父节点3',
+                        x: 500,
+                        y: 200,
+                        itemStyle:{
+                            color:'#39f'
+                        }
+                    },
+                    {
+                        name: 'top节点',
+                        x: 300,
+                        y: 0,
+                        itemStyle:{
+                            color:'gray'
+                        }
+                    }],
+                    // links: [],
+                    links: [
+                    {
+                        source: '节点1',
+                        target: '父节点1'
+                    }, 
+                    {
+                        source: '子节点1',
+                        target: '节点1'
+                    },
+                    
+                    {
+                        source: '节点1',
+                        target: '父节点2'
+                    },
+                    {
+                        source: '子节点2',
+                        target: '节点1'
+                    },
+                    {
+                        source: '节点1',
+                        target: '父节点3'
+                    },
+                    {
+                        source: '节点2',
+                        target: '父节点2'
+                    }, {
+                        source: '父节点1',
+                        target: 'top节点'
+                    }],
+                    lineStyle: {
+                        normal: {
+                            opacity: 0.9,
+                            width: 2,
+                            curveness: 0
+                        }
+                    }
+                }
+            ]
+        };// alert("2.准备指定配置项");
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        // 相当于 document.ready，{代码}
+        $(function(){
+            // alert("3.页面加载完毕");
+        })
+    </script>
+</body>
+</html>
