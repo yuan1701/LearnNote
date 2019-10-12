@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ECharts04-关系图</title>
+<script src="../js/echarts.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+    .contain{
+        width: 70%;
+    }
+    .tool_box{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        margin-top: 50px;
+
+    }
+    .tubiao{
+        position: relative;
+    }
+    .tubiao>ul{
+        position:absolute;
+        right: 20px;
+        top: 10px;
+        list-style: none;
+        z-index: 1;
+        color: aqua;
+    }
+    .tubiao>ul li{
+        display: inline-block;
+        line-height: 20px;
+    }
+    .tubiao>ul>li span{
+        width: 40px;
+        height: 20px;
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: bottom;
+    }
+    .tubiao>ul>li:nth-child(1) span{
+        background: #EBEBEB
+    }
+    .tubiao>ul>li:nth-child(2) span{
+        background: #98D544
+    }
+    .tubiao>ul>li:nth-child(3) span{
+        background: #39B1D5
+    }
+    .tubiao>ul>li:nth-child(4) span{
+        background: #FA9E44
+    }
+    .tubiao>ul>li:nth-child(5) span{
+        background: #25B9A5
+    }
+    .tubiao>ul>li:nth-child(6) span{
+        background: red
+    }
+
+</style>
+</head>
+<body>
+   <div class="contain">
+        <div class="tool_box">
+            <div class="search">
+                <input placeholder="产品线" type="text" name="" id="">
+                <input placeholder="产品" type="text" name="" id="">
+                <button>搜索</button>
+                <input placeholder="产品编码" type="text" name="" id="">
+                <button>搜索</button>
+            </div>
+            <button>导出数据</button>
+        </div>
+        <div class="tubiao">
+            <div>BOM关系图</div>
+            <ul>
+                <li><span></span>wafer</li>
+                <li><span></span>bump</li>
+                <li><span></span>CP</li>
+                <li><span></span>AB</li>
+                <li><span></span>FT</li>
+                <li><span></span>其他</li>
+
+            </ul>
+            <div id="main" style="width: 100%; height: 800px;"></div>
+
+        </div>
+      
+        
+   </div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var product = {
+            data :{},
+            link:{}
+        }
+        var color = []
+        
+        function getShow(val){
+            return '产品：xx <br>编码：'+ val+'<br>流程状态：已发放<br>生命周期状态：Pilot<br>组织：INV_SH2'
+        }
+
+        function getColor(val){
+            // 根据编码获取颜色值  3512-#EBEBEB 3514-#39B1D5  3514B-#98D544  3510-#FA9E44  3504B/3502-#25B9A5;
+            if(String(val).substr(0,4)==='3512'){
+                return "#EBEBEB"
+            }else if(String(val).substr(0,4)==='3514') {
+                if(String(val).substr(0,5)==='3514B'){
+                    return '#98D544'
+                }
+                return '#39B1D5'
+            }else if(String(val).substr(0,4)==='3510'){
+                return '#FA9E44'
+            }else if(String(val).substr(0,4)==='3502' || String(val).substr(0,5)==='3504B'){
+                return '#25B9A5'
+            }
+            return 'red'
+        }
+        var data1=['3512XXXX']
+        var data2 = ['35041321','35041108','35041218','99057KNF','3504B1323','3504XXXX']
+        var data3=['35101308','35100984','35101176','35101309']
+        var data4=['35141180','35141365','35141525','35141531','35141543','3514B1544']
+        var data5=['35141178','35141068']
+
+        var dist = []
+        function createDate(data,y){
+            data.forEach((d,index)=>{
+                var t= {
+                        name: d,
+                        x: 100*index,
+                        y: 100*y,
+                        itemStyle:{
+                            color: getColor(d)
+                        }
+                    }
+                dist.push(t)
+            })
+        }
+        createDate(data1,0)
+        createDate(data2,1)
+        createDate(data3,2)
+        createDate(data4,3)
+        createDate(data5,4)
+
+
+
+
+        var option = {
+            // title: {
+            //     text: 'BOM关系图',
+            //     x: 'center',
+            //     padding: 60,
+            //     textStyle: {
+            //         fontSize: 18,
+            //         fontWeight: 'bolder',
+            //         color: '#fff'          // 主标题文字颜色
+            //     }
+
+            // },
+            backgroundColor: '#000',
+
+            tooltip: {
+                formatter:function(val){
+                    return getShow(val.data.name)
+                }
+            },
+            animationDurationUpdate: 1500,
+            animationEasingUpdate: 'quinticInOut',
+            series : [
+                {
+                    type: 'graph',
+                    layout: 'none',
+                    symbolSize: 50,
+                    roam: true,
+                    label: {
+                        normal: {
+                            show: true,
+                            textStyle: {
+                                fontSize: 10, // 改变label的字体大小
+                            }
+                        },
+                         
+                        
+                    },
+                    
+                    edgeSymbol: ['circle', 'arrow'],
+                    edgeSymbolSize: [4, 10],
+                    edgeLabel: {
+                        normal: {
+                            textStyle: {
+                                fontSize: 20
+                            }
+                        }
+                    },
+                    data:dist,
+                    // links: [],
+                    links: [
+                    {
+                        source: data2[0],
+                        target: data1[0]
+                    },{
+                        source:data3[1],
+                        target:data2[1]
+                    },
+                    {
+                        source:data3[0],
+                        target:data2[0]
+                    },
+                    {
+                        source:data3[2],
+                        target:data2[2]
+                    },
+                    {
+                        source:data3[2],
+                        target:data2[3]
+                    },
+                    {
+                        source:data3[3],
+                        target:data2[4]
+                    },
+                    {
+                        source:data3[3],
+                        target:data2[5]
+                    },
+                    {
+                        source:data4[0],
+                        target:data3[0]
+                    },{
+                        source:data4[0],
+                        target:data3[1]
+                    },{
+                        source:data4[1],
+                        target:data3[2]
+                    },{
+                        source:data4[1],
+                        target:data3[3]
+                    },{
+                        source:data5[0],
+                        target:data4[0]
+                    },
+                    {
+                        source:data5[0],
+                        target:data4[1]
+                    },{
+                        source:data5[0],
+                        target:data4[2]
+                    },{
+                        source:data5[0],
+                        target:data4[3]
+                    },{
+                        source:data5[0],
+                        target:data4[4]
+                    },{
+                        source:data5[0],
+                        target:data4[5]
+                    },{
+                        source:data5[1],
+                        target:data4[5]
+                    }
+
+                
+                ],
+                    lineStyle: {
+                        normal: {
+                            opacity: 0.9,
+                            width: 2,
+                            curveness: 0
+                        }
+                    }
+                }
+            ]
+        };// alert("2.准备指定配置项");
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        // 相当于 document.ready，{代码}
+        $(function(){
+            // alert("3.页面加载完毕");
+        })
+    </script>
+</body>
+</html>
