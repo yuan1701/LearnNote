@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-CSS的奇数选择器和偶数选择器</title>
+    <style>
+        /* :nth-child(n) 选择器匹配属于其父元素的第 N 个子元素，不论元素的类型。
+
+        n 可以是数字、关键词或公式。 */
+        p:nth-child(-n+3) {
+            background: #ff0000;
+        }
+        p:nth-child(3n+0) {
+            color: blueviolet
+        }
+
+         /* nth-of-type(odd) 奇偶数行  nth-of-type(-an+b) n 是计数器（从 0 开始），b 是偏移值
+            该选择器选取父元素的第 N 个指定类型的子元素
+         */ 
+
+        /* 去前三个p标签 */
+        /* p:nth-of-type(-n+3) {
+            background: #ff0000;
+        }
+        p:nth-of-type(3n+0) {
+            color: blueviolet
+        } */
+
+
+        /* 对比nth-of-type()和nth-child()的区别 */
+    </style>
+</head>
+
+<body>
+
+    <h1>这是标题</h1>
+    <p>第一个段落。</p>
+    <div>我是div</div>
+    <p>第二个段落。</p>
+    <p>第三个段落。</p>
+    <p>第四个段落。</p>
+    <p>第五个段落。</p>
+    <p>第六个段落。</p>
+    <p>第七个段落。</p>
+    <p>第八个段落。</p>
+    <p>第九个段落。</p>
+
+</body>
+
+</html>

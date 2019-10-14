@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax02</title>
+    <script src="./myajax.js"></script>
+    <script>
+
+        window.onload = function () {
+            var btn1 = document.getElementsByTagName('button')[0]
+            var btn2 = document.getElementsByTagName('button')[1]
+
+            var data = {
+                '姓名':'张三',
+                age:33
+            }
+            btn1.onclick = function () {
+                console.log(1)
+               
+                // get请求
+                ajax('get','/haha',data,3000,function(res){
+                    console.log('success',res)
+
+                },function(err){
+                    console.log('err',err)
+                })
+            }
+
+            btn2.onclick = function () {
+                // post请求
+                ajax('POST','/haha',data,3000,function(res){
+                    console.log('success',res)
+                },function(err){
+                    console.log('err',err)
+                })
+                
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <button>get请求</button>
+    <button>post请求</button>
+
+
+    <!-- 思考
+        1.什么是json
+        2.前端如何处理json数据
+        3.在低版本的IE浏览器中如何处理json数据 json2.js
+    -->
+
+
+</body>
+
+</html>

@@ -16,7 +16,7 @@
  * 
  * 1.在原生node中如何获取？
  * 
- * 2.post请求在express中无法直接获取，需要使用body-parser模块，然后使用req.body得到如果有文件上传还是需要formidable模块
+ * 2.post请求在express中无法直接获取，需要使用body-parser模块，然后使用req.body得到,如果有文件上传还是需要formidable模块
  * 
  * npm install --save body-parser（可以处理简单的文本信息）
  * 
