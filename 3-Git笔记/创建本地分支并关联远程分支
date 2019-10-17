@@ -1,0 +1,28 @@
+
+#### 创建本地分支
+git branch 分支名
+
+例如：git branch dev，这条命令是基于当前分支创建的本地分支，假设当前分支是master(远程分支)，则是基于master分支创建的本地分支dev。
+
+#### 切换到本地分支
+git checkout 分支名
+
+例如：git checkout dev，这条命令表示从当前master分支切换到dev分支。
+
+#### 创建本地分支并切换
+git checkout -b 分支名
+例如：git checkout -b dev，这条命令把创建本地分支和切换到该分支的功能结合起来了，即基于当前分支master创建本地分支dev并切换到该分支下。
+
+#### 创建本地分支并切换
+git checkout -b dev origin/dev
+即基于origin/dev创建本地分支dev并切换到该分支下。
+
+#### 提交本地分支到远程仓库
+git push origin 本地分支名
+例如：git push origin dev，这条命令表示把本地dev分支提交到远程仓库，即创建了远程分支dev。
+
+
+#### 新建本地分支与远程分支关联
+git branch –set-upstream dev origin/dev
+
+注：本地新建分支， push到远程服务器上之后，使用git pull或者git pull 拉取或提交数据时会报错，必须使用命令：git pull origin dev（指定远程分支）；如果想直接使用git pull或git push拉去提交数据就必须创建本地分支与远程分支的关联。
