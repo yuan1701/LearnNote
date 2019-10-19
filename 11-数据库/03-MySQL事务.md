@@ -1,4 +1,4 @@
-### 事务
+## 事务
 在 MySQL 中，事务其实是一个最小的不可分割的工作单元。事务能够保证一个业务的完整性。
 
 比如我们的银行转账：
@@ -12,10 +12,10 @@ UPDATE user set money = money + 100 WHERE name = 'b';
 
 因此，在执行多条有关联 SQL 语句时，事务可能会要求这些 SQL 语句要么**同时执行成功，要么就都执行失败**。
 
-如何控制事务 - COMMIT / ROLLBACK
+### 如何控制事务 - COMMIT / ROLLBACK
 在 MySQL 中，事务的自动提交状态默认是开启的。
 
--- 查询事务的自动提交状态
+#### 查询事务的自动提交状态
 ```sql
 SELECT @@AUTOCOMMIT;
 +--------------+
@@ -71,7 +71,7 @@ SELECT * FROM user;
 ```
 由于所有执行过的 SQL 语句都已经被提交过了，所以数据并没有发生回滚。那如何让数据可以发生回滚？
 
--- 关闭自动提交
+#### 关闭自动提交
 ```sql
 SET AUTOCOMMIT = 0;
 ```
@@ -161,7 +161,8 @@ SELECT @@AUTOCOMMIT
 
 设置自动提交状态：
 SET AUTOCOMMIT = 0
-
+```
+```sql
 手动提交
 @@AUTOCOMMIT = 0 时，使用 COMMIT 命令提交事务。
 
@@ -206,7 +207,7 @@ SELECT * FROM user;
 ```
 这时我们又回到了发生意外之前的状态，也就是说，事务给我们提供了一个可以反悔的机会。假设数据没有发生意外，这时可以手动将数据真正提交到数据表中：COMMIT 。
 
-##### 手动开启事务 - BEGIN / START TRANSACTION
+### 手动开启事务 - BEGIN / START TRANSACTION
 事务的默认提交被开启 ( @@AUTOCOMMIT = 1 ) 后，此时就不能使用事务回滚了。但是我们还可以手动开启一个事务处理事件，使其可以发生回滚：
 
 -- 使用 BEGIN 或者 START TRANSACTION 手动开启一个事务
@@ -295,7 +296,7 @@ D 持久性：事务一旦结束 ( COMMIT ) ，就不可以再返回了 ( ROLLBA
 
 所有的事务都会按照固定顺序执行，执行完一个事务后再继续执行下一个事务的写入操作。
 
-##### 查看当前数据库的默认隔离级别：
+#### 查看当前数据库的默认隔离级别：
 
 -- MySQL 8.x, GLOBAL 表示系统级别，不加表示会话级别。
 ```sql
@@ -314,7 +315,7 @@ SELECT @@GLOBAL.TX_ISOLATION;
 SELECT @@TX_ISOLATION;
 ```
 
-##### 修改隔离级别：
+#### 修改隔离级别：
 
 -- 设置系统隔离级别，LEVEL 后面表示要设置的隔离级别 (READ UNCOMMITTED)。
 ```sql
@@ -330,7 +331,7 @@ SELECT @@GLOBAL.TRANSACTION_ISOLATION;
 | READ-UNCOMMITTED               |
 +--------------------------------+
 ```
-#### 1. 脏读
+### 1. 脏读
 测试 READ UNCOMMITTED ( 读取未提交 ) 的隔离性：
 
 ```sql
@@ -389,7 +390,7 @@ SELECT * FROM user;
 ```
 这就是所谓的脏读，一个事务读取到另外一个事务还未提交的数据。这在实际开发中是不允许出现的。
 
-#### 2 读取已提交(不可重复读)
+### 2 读取已提交(不可重复读)
 把隔离级别设置为 READ COMMITTED ：
 
 ```sql
@@ -490,7 +491,7 @@ SELECT AVG(money) FROM user;
 ```
 虽然 READ COMMITTED 让我们只能读取到其他事务已经提交的数据，但还是会出现问题，就是在读取同一个表的数据时，可能会发生前后不一致的情况。这被称为不可重复读现象 ( READ COMMITTED ) 。
 
-#### 3. 幻读
+### 3. 幻读
 将隔离级别设置为 REPEATABLE READ ( 可被重复读取 ) :
 ```sql
 SET GLOBAL TRANSACTION ISOLATION LEVEL REPEATABLE READ;
@@ -544,7 +545,7 @@ INSERT INTO user VALUES (6, 'd', 1000);
 ```
 报错了，操作被告知已存在主键为 6 的字段。这种现象也被称为幻读，一个事务提交的数据，不能被其他事务读取到。
 
-#### 4 串行化
+### 4 串行化
 顾名思义，就是所有事务的写入操作全都是串行化的。什么意思？把隔离级别修改成 SERIALIZABLE :
 
 ```sql
