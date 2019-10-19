@@ -1,7 +1,10 @@
 
 /**
- * 回调  
- * 1.awite()
+ * 1.回调 
+ * 2.promise
+ * 3.awite()
+ * 
+ * 
  *  2.next 
  * 3.递归
  */
@@ -19,7 +22,7 @@
 
 /** 在上面代码会先打印fn2,怎么样才能先打印fn1呢？？ */ 
 
-/** 1.回调函数 */
+/** 1.回调函数 但是嵌套层级变多之后就会出现回调地狱，不好维护*/
 function f1(callback){
     setTimeout(()=>{
         console.log('fn1')
@@ -31,19 +34,32 @@ function f2(){
 }
 f1(f2)
 
-/** 2.链式调用,需要依赖jquery */
-function f1() {
-    var dfd = $.Deferred();
-    setTimeout(function () {
-        console.log('f1')
-        // f1的任务代码
-        dfd.resolve();
-    }, 500);
-    return dfd;
+/** 2.链式调用,promise */
+function delay(word) {
+    return new Promise((resolve,reject)=>{
+        setTimeout(function(){resolve(word)},200)
+    })
 }
-function f2(){
-    console.log('f2')
+delay('孙悟空').then((word)=>{
+    console.log(word)
+    return delay('猪八戒')
+}).then((word)=>{
+    console.log(word)
+    return delay('沙和尚')
+}).then((word)=>{
+    console.log(word,'-----------------')
+})
+
+// 3.async+await
+async function start(){
+    const word1 = await delay("孙悟空")
+    console.log(word1)
+    const word2 = await delay("猪八戒")
+    console.log(word2)
+    const word3 = await delay("撒和尚")
+    console.log(word3)
 }
-f1().then(f2)
+start()
+ 
 
  

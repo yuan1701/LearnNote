@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组深层嵌套</title>
+    <script>
+
+        window.onload=function fn(){
+                var data = {
+                    item: {
+                        child: [
+                           {
+                            child:[
+                                {
+                                    child:[],
+                                    part_no:'child11'
+                                },
+                                {
+                                    child:[],
+                                    part_no:'child12'
+                                }
+                           ],
+                            part_no:'child01'
+                           },
+                           {
+                            child:[],
+                            part_no:'child02'
+                           }
+                        ],
+                        part_no: 'top1'
+                    }
+                }
+
+                let res = []
+                let links=[]
+
+                function clear(obj){
+                    let sons=[]
+                    let mid_res = []
+                    const {child,part_no}=obj
+                    child.forEach(element => {
+                        sons.push(element)
+                        mid_res.push(element.part_no)
+                        links.push({source:element.part_no,target:part_no})
+                    });
+                    // clear(sons)
+                    res.push(mid_res)
+                    sons.forEach(i=>{
+                        clear(i)
+                    })
+                }
+                clear(data.item)
+                console.log(res,links)
+
+            }
+        
+    
+    
+    </script>
+</head>
+<body>
+    <button onclick="fn">点击</button>
+</body>
+</html>
