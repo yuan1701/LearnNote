@@ -1,0 +1,74 @@
+MySQL学习笔记
+ 
+###  登录MySQL
+```sql
+$ mysql -u root -p12345612
+```
+
+### 退出MySQL数据库服务器
+```sql
+exit;
+```
+基本语法
+### 显示所有数据库
+```sql
+show databases;
+```
+
+### 创建数据库
+```sql
+CREATE DATABASE test;
+```
+
+### 切换数据库
+```sql
+use test;
+```
+
+### 显示数据库中的所有表
+```sql
+show tables;
+```
+
+### 创建数据表
+```sql
+CREATE TABLE pet (
+    name VARCHAR(20),
+    owner VARCHAR(20),
+    species VARCHAR(20),
+    sex CHAR(1),
+    birth DATE,
+    death DATE
+);
+```
+
+### 查看数据表结构
+```sql
+-- describe pet;
+desc pet;
+```
+
+###  查询表
+```sql
+SELECT * from pet;
+```
+
+### 插入数据
+```sql
+INSERT INTO pet VALUES ('puffball', 'Diane', 'hamster', 'f', '1990-03-30', NULL);
+```
+
+###修改数据
+```sql
+UPDATE pet SET name = 'squirrel' where owner = 'Diane';
+```
+
+### 删除数据
+```sql
+DELETE FROM pet where name = 'squirrel';
+```
+
+###  删除表
+```sql
+DROP TABLE myorder;
+```
