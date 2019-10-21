@@ -1,3 +1,5 @@
+[TOC]
+
 MySQL学习笔记
  
 ###  登录MySQL
@@ -18,6 +20,9 @@ show databases;
 ### 创建数据库
 ```sql
 CREATE DATABASE test;
+--指定编码(注意是utf8)
+CREATE DATABASE test default character set utf8;
+
 ```
 
 ### 切换数据库
@@ -33,6 +38,7 @@ show tables;
 ### 创建数据表
 ```sql
 CREATE TABLE pet (
+-- 列名 类型 约束 comment '备注'
     name VARCHAR(20),
     owner VARCHAR(20),
     species VARCHAR(20),
@@ -72,3 +78,4 @@ DELETE FROM pet where name = 'squirrel';
 ```sql
 DROP TABLE myorder;
 ```
+
