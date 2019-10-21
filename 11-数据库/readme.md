@@ -1,10 +1,13 @@
 [TOC]
 
 MySQL学习笔记
- 
+### 服务器的开启
+```sql
+service mysql start/stop/restart/status
+```
 ###  登录MySQL
 ```sql
-$ mysql -u root -p12345612
+$ mysql -h127.0.0.1 -u root -p12345612
 ```
 
 ### 退出MySQL数据库服务器
