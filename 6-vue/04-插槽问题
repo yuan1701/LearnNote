@@ -1,0 +1,185 @@
+[TOC]
+问题：用过插槽吗？用的具名插槽还是匿名插槽？？
+###1.插槽是什么?------ <slot></slot>
+###2.插槽干什么的？
+    插槽用在子组件中，使用<slot></slot>标签。然后父组件在使用子组件的时候在子组件标签中添加的内容就能传到子组件中，
+    <slot></slot>就是用来存放父组件在子组件标签中放置的内容的
+匿名插槽只能添加一个
+以下是完整代码，可自行测试.(子组件里没有slot标签的时候，<child>标签里的nihao1是不会输出的)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue的插槽</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child>nihao1</child>
+    </div>
+    <script type="text/javascript">
+        //定义组件
+        Vue.component('child',{
+            template:`<div>Hello,World!<slot></slot></div>`
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+    </script>   
+</body>
+</html>
+```
+
+### 3.具名插槽是什么？------- 就是给插槽起了个名字
+
+```html
+<div id="app">
+    <child>
+        <template slot="girl">
+            漂亮、美丽、购物、逛街
+        </template>
+        <template slot="boy">
+            帅气、才实
+        </template>
+        <div>
+            无名无姓，普通的插槽
+        </div>
+    </child>
+</div>
+
+<script type="text/javascript">
+    //定义组件
+    Vue.component('child',{
+        template:`<div>
+                    <slot name="girl"></slot>
+                    <div style="height:1px;background-color:red;"></div>
+                    <slot name="boy"></slot>
+                    <div style="height:1px;background-color:red;"></div>
+                    <slot></slot>
+                   </div>`
+    })
+    //创建vue实例
+    var vm = new Vue({
+        el: "#app",
+        data:{
+            
+        }
+    })
+</script>
+```
+
+### 4: 作用域插槽slot-scope
+
+在组件中绑定在slot标签上的属性，在父组件使用组件标签时可以拿到属性/值。请看如下代码：
+
+```html
+<div id="app">
+    <child>
+        <div slot-scope="a">
+            {{a}}     <!--这里显示的是字符串{'say':'你好'}-->
+        </div>
+    </child>
+</div>
+
+<script type="text/javascript">
+    //定义组件
+    Vue.component('child',{
+        template:`<div>
+                    <slot say="你好"></slot>
+                   </div>`
+    })
+    //创建vue实例
+    var vm = new Vue({
+        el: "#app",
+        data:{
+            
+        }
+    })
+</script>
+```
+
+
+通过在浏览器上查看，以json对象形式展示出来，只不过它是个字符串。
+
+
+```html
+<div id="app">
+    <child :lists="listPhone">
+        <div slot-scope="a">
+            {{a}}
+        </div>
+    </child>
+</div>
+<template id="temp">
+    <div>
+        <ul>
+            <li v-for="list in lists">
+                <slot :phone="list"></slot>
+            </li>
+        </ul>
+    </div>
+</template>
+<script type="text/javascript">
+    //定义组件
+    Vue.component('child',{
+        props:['lists'],
+        template:"#temp"
+    })
+    //创建vue实例
+    var vm = new Vue({
+        el: "#app",
+        data:{
+            listPhone:[
+                {id:1,brand:"苹果"},
+                {id:2,brand:"华为"},
+                {id:3,brand:"荣耀"},
+                {id:4,brand:"小米"}
+            ]
+        }
+    })
+</script>
+```
+假如我在加一些判断，对这些数据进行操作
+
+```html
+<div id="app">
+    <child :lists="listPhone">
+        <div slot-scope="a">
+            <div v-if="a.phone.id===1">这是{{a.phone.brand}}</div>
+            <div v-else>{{a.phone.brand}}</div>
+        </div>
+    </child>
+</div>
+<template id="temp">
+    <div>
+        <ul>
+            <li v-for="list in lists">
+                <slot :phone="list"></slot>
+            </li>
+        </ul>
+    </div>
+</template>
+<script type="text/javascript">
+    //定义组件
+    Vue.component('child',{
+        props:['lists'],
+        template:"#temp"
+    })
+    //创建vue实例
+    var vm = new Vue({
+        el: "#app",
+        data:{
+            listPhone:[
+                {id:1,brand:"苹果"},
+                {id:2,brand:"华为"},
+                {id:3,brand:"荣耀"},
+                {id:4,brand:"小米"}
+            ]
+        }
+    })
+</script>
+```
