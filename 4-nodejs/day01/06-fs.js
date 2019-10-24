@@ -76,7 +76,7 @@ http.createServer((req, res) => {
                 // console.log('./demo/' + files[i])
                 // ps:这里的files为什么是undefined,用let代替var才能正常输出
                 if (err) throw err
-                if (stats.isDirectory()) {
+                if (stats.isDirectory()) { // 是否为文件夹
                     folder.push(files[i])
                 }
                 console.log(folder)

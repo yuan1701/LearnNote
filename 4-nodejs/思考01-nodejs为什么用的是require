@@ -1,24 +1,8 @@
 https://www.cnblogs.com/guanghe/p/6560698.html
 
 在nodejs里面为什么用require?
-在node源码中require('xxx')是一个方法,默认会从node_modules目录下面去找xxx文件(PS:在node_modules文件下找文件是不需要./的)
-interface NodeModule {
-    exports: any;
-    require: NodeRequireFunction;
-    id: string;
-    filename: string;
-    loaded: boolean;
-    parent: NodeModule | null;
-    children: NodeModule[];
-    paths: string[];
-}
+node模块中，我们采用的是CommonJS规范，使用require引入模块，使用module.exports导出接口
 
-在nodejs中为什么不用import/export模块?(以下是百度答案)
-因为一些历史原因，虽然 Node.js 已经实现了 99% 的 ES6 新特性，不过截止 2018.8.10，How To Enable ES6 Imports in Node.JS 仍然是老大难问题
-
-但是如果想要用import/export还是可以使用babel实现滴，以下是链接
-
-  https://www.jianshu.com/p/ce92a09ad6eb
 
 
 
