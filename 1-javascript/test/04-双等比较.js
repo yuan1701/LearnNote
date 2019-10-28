@@ -2,6 +2,9 @@
  * == 进行比较，如果左右两边数据类型不一致，则先转换为相同的数据类型，然后在进行比较
  * 1.{}=={}两个对象进行比较，比较的是堆内存的地址
  * 2.null == undefined // true null === undefined // false
+ * toString(null) //"[object Undefined]"
+ * toString([])   // "[object Undefined]"
+ *  null==[] // false
  * 3. NaN == NaN 不相等，NaN和谁都不相等
  * 4.[12]=='12'  对象和字符串比较，是把对象toString()转换为字符串后再进行比较
  * 5.剩余所有的情况下载进行比较的时候都是转换为数字（前提数据类型不一样）
@@ -21,12 +24,13 @@
 
 
 
-/**
-    var a=?
-    if(a==1&&a==2&&a==3){
-        console.log(1);   
-    }补充代码
- */
+
+var a=_
+if(a==1&&a==2&&a==3){
+    console.log(1);   
+}
+// 补充上面代码
+
 
 
  //对象和数字比较，先把对象.toSting变为字符串，然后再转化数字
