@@ -6,11 +6,11 @@
  *   1. typeof null => "object"  但是null并不是对象
  *   2. 基于typeof无法细分出当前值是普通对象还是数组对象等，因为只要是对象数据类型，返回的结果都是"object"
  */
-/* console.log(typeof 1);
+console.log(typeof 1);
 let a = NaN;
-console.log(typeof a); //=>'number' */
+console.log(typeof a); //=>'number' 
 
-// console.log(typeof typeof typeof []);
+console.log(typeof typeof typeof []);
 //=> typeof [] => "object"
 //=> typeof "object" => "string"
 //因为typeof检测的结果都是字符串，所以只要两个及以上同时检测，最后结果必然是"string"
