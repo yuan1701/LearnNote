@@ -26,3 +26,30 @@ console.log(selectionSort(arr));
 ```
 
 
+### 插入排序
+```javascript
+var arr=[5,6,4,55,3,6]
+
+function insertionSort(arr) {
+    // 插入排序
+    let preIndex,current
+
+    for (let i = 1; i < arr.length; i++) {
+        preIndex = i-1;
+        current = arr[i]
+
+        while (preIndex>=0&&arr[preIndex]>current) {
+            arr[preIndex+1]=arr[preIndex]
+            preIndex--
+            
+        }
+        arr[preIndex+1]=current
+    }
+    return arr
+}
+
+console.log(insertionSort(arr));
+
+```
+
+
