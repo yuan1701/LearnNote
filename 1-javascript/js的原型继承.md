@@ -10,6 +10,7 @@ var a=new Array()
 a.__proto__ == Array.prototype //true
 Array.__proto__ == Function.prototype //true
 Function.__proto__.__proto__ == Object.prototype  //true
+a.constructor==Array.prototype.constructor //true
 
 ```
 
